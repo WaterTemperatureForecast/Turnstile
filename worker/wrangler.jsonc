@@ -8,7 +8,7 @@
   // Game state. Tables are created by schema.sql (npm run db:schema).
   // database_id is filled in by `wrangler d1 create turnstile` (see README).
   "d1_databases": [
-    { "binding": "DB", "database_name": "turnstile", "database_id": "00000000-0000-0000-0000-000000000000" }
+    { "binding": "DB", "database_name": "turnstile", "database_id": "c49e3a54-9fe8-4ca2-befd-b1897c32d096" }
   ],
 
   // Workers AI: Llama Guard screens nicknames before they are shown to others.

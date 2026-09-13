@@ -38,6 +38,7 @@ def call(method, path, body=None):
     req = urllib.request.Request(BASE + path, data=data, method=method)
     req.add_header("X-Admin-Token", token())
     req.add_header("Accept", "application/json")
+    req.add_header("User-Agent", "turnstile-admin/1.0")   # Cloudflare's browser check 403s the default urllib UA
     if data is not None:
         req.add_header("Content-Type", "application/json")
     try:
