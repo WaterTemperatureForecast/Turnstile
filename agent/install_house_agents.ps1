@@ -25,7 +25,7 @@ foreach ($job in $jobs) {
     $action = New-ScheduledTaskAction -Execute $python -Argument "`"$here\$($job.script)`" $($job.args)" -WorkingDirectory $here
     $trigger = New-ScheduledTaskTrigger -Daily -At $startLocal
     $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -RestartCount 12 -RestartInterval (New-TimeSpan -Minutes 30) `
-        -ExecutionTimeLimit (New-TimeSpan -Minutes 30) -WakeToRun
+        -ExecutionTimeLimit (New-TimeSpan -Minutes 90) -WakeToRun   # one `claude -p` call takes ~3 min; a full investigation is up to 10 calls
     Register-ScheduledTask -TaskName $job.name -Action $action -Trigger $trigger -Settings $settings -Force | Out-Null
     Write-Host "registered '$($job.name)' daily at $($startLocal.ToString('HH:mm')) local ($($startUtc.ToString('HH:mm'))Z)"
 }
