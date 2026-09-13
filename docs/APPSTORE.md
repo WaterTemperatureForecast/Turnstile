@@ -19,23 +19,25 @@ the automation does not have; everything else is scripted and idempotent.
 4. **Scheduled tasks** for the house agents, once, from PowerShell:
    `powershell -ExecutionPolicy Bypass -File agent\install_house_agents.ps1`
    (tokens are already in `~/.turnstile/`; setters are flagged).
-5. **Metadata**: `set REVIEW_PHONE=+1 541 490 2474 && python3
-   C:\Users\M5\Downloads\setup_turnstile_asc.py` — subtitle, categories
-   (Games / Puzzle / Board), description, keywords, promo text, URLs,
-   copyright, review contact + notes, age rating 4+, content rights,
-   TestFlight test info, screenshots (see 6).
-6. **Screenshots**: capture on an iPhone from TestFlight (Today with both
-   machines, a machine mid-experiment, the tests, the reveal with the AI
-   transcript, Board > Setters, You), drop the PNGs in `appstore/iphone-6.7/`,
-   run `python tools/compose_store_images.py` (copy from the Schelling repo)
-   to make the 1290x2796 and 2048x2732 sets, re-run step 5.
-7. **App Privacy** questionnaire in the browser. Honest answers: no data
-   collected that is linked to identity; the random player id is an app
-   identifier used for app functionality only; nickname is optional
-   user content. "Data Not Collected" was accepted for the Vault apps with
-   the same posture.
-8. Price **Free** (`asc_vault_submit.py`-style price schedule works too),
-   attach the build, Add for Review, Submit.
+5. **Metadata**: DONE — `set REVIEW_PHONE=+1 541 490 2474 && python3
+   C:\Users\M5\Downloads\setup_turnstile_asc.py` (idempotent) set the
+   subtitle, categories (Games / Puzzle / Board), description, keywords,
+   promo text, URLs, copyright, review contact + notes, age rating 4+,
+   content rights, TestFlight test info and all ten screenshots.
+6. **Screenshots**: DONE — `python3 tools/make_screenshots.py` renders the
+   five iPhone 6.7 (1290x2796) and five iPad 13 (2048x2732) images from the
+   screen designs; every tile sequence in them is labelled by the real
+   engine. Replace with real TestFlight captures whenever convenient:
+   drop PNGs in `appstore/iphone-6.7/` and re-run step 5.
+7. **Price and build**: DONE — `python3 tools/asc_finish.py --apply` set the
+   Free price schedule and attached build 6 to version 1.0. Re-run it after
+   any new build.
+8. **App Privacy** questionnaire in the browser (the only remaining
+   blocker; no public API). Honest answers: no data collected that is
+   linked to identity; the random player id is an app identifier used for
+   app functionality only; nickname is optional user content. "Data Not
+   Collected" was accepted for the Vault apps with the same posture.
+9. **Add for Review** and **Submit** in the browser.
 
 ## Store copy (source of truth is setup_turnstile_asc.py)
 
