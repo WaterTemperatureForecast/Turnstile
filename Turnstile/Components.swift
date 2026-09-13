@@ -107,11 +107,21 @@ struct VerdictBadge: View {
     let accepted: Bool
     var compact = false
     var body: some View {
+        // Two label styles are different types, so branch instead of a ternary.
+        Group {
+            if compact {
+                label.labelStyle(.iconOnly)
+            } else {
+                label.labelStyle(.titleAndIcon)
+            }
+        }
+        .font(.subheadline.weight(.semibold))
+        .foregroundColor(accepted ? .green : .red)
+        .accessibilityLabel(Text(accepted ? "accepted" : "rejected"))
+    }
+
+    private var label: some View {
         Label(accepted ? "Accept" : "Reject", systemImage: accepted ? "checkmark.circle.fill" : "xmark.circle.fill")
-            .labelStyle(compact ? .iconOnly : .titleAndIcon)
-            .font(.subheadline.weight(.semibold))
-            .foregroundColor(accepted ? .green : .red)
-            .accessibilityLabel(Text(accepted ? "accepted" : "rejected"))
     }
 }
 
