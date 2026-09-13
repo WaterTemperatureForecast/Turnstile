@@ -10,6 +10,10 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 APP = "Turnstile"
 BUNDLE = "tech.advancedfield.Turnstile"
+# "Turnstile" was taken on the App Store, so the listing is "Turnstile AI";
+# the home-screen name matches it (12 chars, no truncation) while the target,
+# scheme and in-app titles stay "Turnstile".
+DISPLAY_NAME = "Turnstile AI"
 MARKETING_VERSION = "1.0"
 SOURCES = [
     "TurnstileApp.swift", "Models.swift", "API.swift", "Keychain.swift", "AppModel.swift", "Components.swift",
@@ -57,7 +61,7 @@ TARGET = f"""\t\t\t\tASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 \t\t\t\tENABLE_PREVIEWS = YES;
 \t\t\t\tGENERATE_INFOPLIST_FILE = YES;
 \t\t\t\tCODE_SIGN_ENTITLEMENTS = {APP}/{APP}.entitlements;
-\t\t\t\tINFOPLIST_KEY_CFBundleDisplayName = "{APP}";
+\t\t\t\tINFOPLIST_KEY_CFBundleDisplayName = "{DISPLAY_NAME}";
 \t\t\t\tINFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 \t\t\t\tINFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 \t\t\t\tINFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

@@ -7,9 +7,11 @@ the automation does not have; everything else is scripted and idempotent.
 
 1. **Bundle id** in the Developer Portal: `python3 tools\asc_bundle_id.py`
    (registers `tech.advancedfield.Turnstile`, prints "exists" on re-runs).
-2. **App record**: App Store Connect > My Apps > + > New App: iOS, name
-   "Turnstile", primary language English (U.S.), bundle ID
-   `tech.advancedfield.Turnstile`, SKU `turnstile`. (No public API.)
+2. **App record**: DONE 2026-09-13 — app id **6811698279**, store name
+   **"Turnstile AI"** (plain "Turnstile" was already taken), SKU
+   `TurnStile_01`, bundle `tech.advancedfield.Turnstile`. The home-screen
+   name matches the listing ("Turnstile AI"); the target, scheme, repo and
+   in-app titles stay "Turnstile".
 3. **Build**: `python tools\codemagic.py start` (app id 6aa6d854710b2eedf0f3636f
    is already added; the first build 6aa6d888e0e1aa5c16416155 failed only
    because step 1 had not happened). Then `python tools\codemagic.py builds`
@@ -37,7 +39,7 @@ the automation does not have; everything else is scripted and idempotent.
 
 ## Store copy (source of truth is setup_turnstile_asc.py)
 
-- Name: Turnstile
+- Name: Turnstile AI (app id 6811698279)
 - Subtitle: Crack the machine's rule
 - Category: Games / Puzzle, Board
 - Keywords: logic,puzzle,daily,deduction,induction,rule,brain,ai,claude,gpt,zendo,science,experiment,thinking,game
