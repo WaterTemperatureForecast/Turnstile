@@ -1,0 +1,21 @@
+{
+  "name": "turnstile-worker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Turnstile API: Cloudflare Worker + D1",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types test/crosscheck.ts",
+    "fixtures": "python ../engine/export_fixtures.py fixtures/rules.json",
+    "db:schema": "wrangler d1 execute turnstile --remote --file=schema.sql",
+    "db:schema:local": "wrangler d1 execute turnstile --local --file=schema.sql"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.0.0",
+    "typescript": "^5.6.0",
+    "wrangler": "^4.92.0"
+  }
+}

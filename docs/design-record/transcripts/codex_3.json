@@ -1,0 +1,145 @@
+{
+  "author": "codex",
+  "machine": "3",
+  "investigator": "claude",
+  "phase": "answered",
+  "events": [
+    {
+      "note": "Pairs share shapes (acc1/rej1, acc3/rej3) or nearly (acc2/rej2) so shape-only and colour-only fail; AND/OR/single/NOT all impossible (shown by pattern algebra). 8 XOR candidates: 1 pos3 yellow^pos2 square; 2 pos3 blue^pos2 circle; 3 pos3 blue^pos3 square; 4 pos3 blue^exactly 2 circles; 5 exactly 1 blue^alldiff shape; 6 exactly 1 yellow^alldiff shape; 7 alldiff colour^alldiff shape; 8 same colour 2,3^same shape 1,2. Q1 'Cy Sy Sb' splits 4/4: ACCEPT -> {1,2,4,5}; REJECT -> {3,6,7,8}.",
+      "after_queries": 0
+    },
+    {
+      "query": [
+        2,
+        5,
+        4
+      ],
+      "accepted": false
+    },
+    {
+      "note": "REJECT -> {3 pos3 blue^pos3 square; 6 exactly 1 yellow^alldiff shape; 7 alldiff colour^alldiff shape; 8 same colour 2,3^same shape 1,2}. Q2 'Cr Sr Sr': ACCEPT -> {3,8}; REJECT -> {6,7}.",
+      "after_queries": 1
+    },
+    {
+      "query": [
+        0,
+        3,
+        3
+      ],
+      "accepted": true
+    },
+    {
+      "note": "ACCEPT -> {3 pos3 blue^pos3 square; 8 same colour 2,3^same shape 1,2}. Q3 'Sb Cb Sr': ACCEPT -> 3; REJECT -> 8.",
+      "after_queries": 2
+    },
+    {
+      "query": [
+        4,
+        1,
+        3
+      ],
+      "accepted": false
+    },
+    {
+      "note": "REJECT -> #8: same colour 2,3 XOR same shape 1,2. Confirmation Q4 'Cr Cb Tb' (both true -> XOR false): expect REJECT; #3 would ACCEPT.",
+      "after_queries": 3
+    },
+    {
+      "query": [
+        0,
+        1,
+        7
+      ],
+      "accepted": false
+    },
+    {
+      "tests_revealed_after_queries": 4
+    },
+    {
+      "answers": [
+        "R",
+        "A",
+        "R",
+        "A"
+      ],
+      "score": 4
+    },
+    {
+      "star": {
+        "op": "xor",
+        "a": {
+          "op": "same",
+          "attr": "colour",
+          "i": 2,
+          "j": 3
+        },
+        "b": {
+          "op": "same",
+          "attr": "shape",
+          "i": 1,
+          "j": 2
+        }
+      },
+      "hit": true
+    }
+  ],
+  "queries": [
+    {
+      "seq": [
+        2,
+        5,
+        4
+      ],
+      "accepted": false
+    },
+    {
+      "seq": [
+        0,
+        3,
+        3
+      ],
+      "accepted": true
+    },
+    {
+      "seq": [
+        4,
+        1,
+        3
+      ],
+      "accepted": false
+    },
+    {
+      "seq": [
+        0,
+        1,
+        7
+      ],
+      "accepted": false
+    }
+  ],
+  "answers": [
+    false,
+    true,
+    false,
+    true
+  ],
+  "score": 4,
+  "star": {
+    "ast": {
+      "op": "xor",
+      "a": {
+        "op": "same",
+        "attr": "colour",
+        "i": 2,
+        "j": 3
+      },
+      "b": {
+        "op": "same",
+        "attr": "shape",
+        "i": 1,
+        "j": 2
+      }
+    },
+    "hit": true
+  }
+}

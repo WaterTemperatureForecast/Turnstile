@@ -1,0 +1,7 @@
+node_modules/
+.dev.vars
+.wrangler/
+__pycache__/
+*.bak
+.DS_Store
+build/

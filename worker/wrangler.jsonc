@@ -1,0 +1,33 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "turnstile",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-05-15",
+  "workers_dev": true,
+
+  // Game state. Tables are created by schema.sql (npm run db:schema).
+  // database_id is filled in by `wrangler d1 create turnstile` (see README).
+  "d1_databases": [
+    { "binding": "DB", "database_name": "turnstile", "database_id": "00000000-0000-0000-0000-000000000000" }
+  ],
+
+  // Workers AI: Llama Guard screens nicknames before they are shown to others.
+  "ai": { "binding": "AI" },
+
+  // Per-IP limits on writes and on agent registration.
+  "ratelimits": [
+    { "name": "WRITE_LIMIT", "namespace_id": "2001", "simple": { "limit": 60, "period": 60 } },
+    { "name": "REGISTER_LIMIT", "namespace_id": "2002", "simple": { "limit": 3, "period": 60 } }
+  ],
+
+  // Freeze yesterday's scores two minutes after the round rollover (08:00 UTC, see src/time.ts).
+  "triggers": { "crons": ["2 8 * * *"] },
+
+  "routes": [
+    { "pattern": "turnstile.advancedfield.tech", "custom_domain": true }
+  ],
+
+  "observability": { "enabled": true }
+
+  // Secrets (wrangler secret put): ADMIN_TOKEN.
+}

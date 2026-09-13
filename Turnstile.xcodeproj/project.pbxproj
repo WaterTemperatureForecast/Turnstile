@@ -1,0 +1,323 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D10000000000000000000201 /* TurnstileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10000000000000000000101 /* TurnstileApp.swift */; };
+		D10000000000000000000202 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10000000000000000000102 /* Models.swift */; };
+		D10000000000000000000203 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10000000000000000000103 /* API.swift */; };
+		D10000000000000000000204 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10000000000000000000104 /* Keychain.swift */; };
+		D10000000000000000000205 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10000000000000000000105 /* AppModel.swift */; };
+		D10000000000000000000206 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10000000000000000000106 /* Components.swift */; };
+		D10000000000000000000207 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10000000000000000000107 /* TodayView.swift */; };
+		D10000000000000000000208 /* MachineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10000000000000000000108 /* MachineView.swift */; };
+		D10000000000000000000209 /* RevealView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10000000000000000000109 /* RevealView.swift */; };
+		D1000000000000000000020A /* RulePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1000000000000000000010A /* RulePickerView.swift */; };
+		D1000000000000000000020B /* YesterdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1000000000000000000010B /* YesterdayView.swift */; };
+		D1000000000000000000020C /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1000000000000000000010C /* LeaderboardView.swift */; };
+		D1000000000000000000020D /* YouView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1000000000000000000010D /* YouView.swift */; };
+		D1000000000000000000020E /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1000000000000000000010E /* HelpView.swift */; };
+		D10000000000000000000210 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D10000000000000000000110 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		100000000000000000000006 /* Turnstile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Turnstile.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D10000000000000000000101 /* TurnstileApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnstileApp.swift; sourceTree = "<group>"; };
+		D10000000000000000000102 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		D10000000000000000000103 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		D10000000000000000000104 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
+		D10000000000000000000105 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		D10000000000000000000106 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		D10000000000000000000107 /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
+		D10000000000000000000108 /* MachineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineView.swift; sourceTree = "<group>"; };
+		D10000000000000000000109 /* RevealView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevealView.swift; sourceTree = "<group>"; };
+		D1000000000000000000010A /* RulePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulePickerView.swift; sourceTree = "<group>"; };
+		D1000000000000000000010B /* YesterdayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YesterdayView.swift; sourceTree = "<group>"; };
+		D1000000000000000000010C /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
+		D1000000000000000000010D /* YouView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouView.swift; sourceTree = "<group>"; };
+		D1000000000000000000010E /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
+		D10000000000000000000110 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		100000000000000000000008 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		100000000000000000000002 = {
+			isa = PBXGroup;
+			children = (
+				100000000000000000000004 /* Turnstile */,
+				100000000000000000000003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		100000000000000000000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				100000000000000000000006 /* Turnstile.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		100000000000000000000004 /* Turnstile */ = {
+			isa = PBXGroup;
+			children = (
+				D10000000000000000000101 /* TurnstileApp.swift */,
+				D10000000000000000000102 /* Models.swift */,
+				D10000000000000000000103 /* API.swift */,
+				D10000000000000000000104 /* Keychain.swift */,
+				D10000000000000000000105 /* AppModel.swift */,
+				D10000000000000000000106 /* Components.swift */,
+				D10000000000000000000107 /* TodayView.swift */,
+				D10000000000000000000108 /* MachineView.swift */,
+				D10000000000000000000109 /* RevealView.swift */,
+				D1000000000000000000010A /* RulePickerView.swift */,
+				D1000000000000000000010B /* YesterdayView.swift */,
+				D1000000000000000000010C /* LeaderboardView.swift */,
+				D1000000000000000000010D /* YouView.swift */,
+				D1000000000000000000010E /* HelpView.swift */,
+				D10000000000000000000110 /* Assets.xcassets */,
+			);
+			path = Turnstile;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		100000000000000000000005 /* Turnstile */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 100000000000000000000011 /* Build configuration list for PBXNativeTarget "Turnstile" */;
+			buildPhases = (
+				100000000000000000000007 /* Sources */,
+				100000000000000000000008 /* Frameworks */,
+				100000000000000000000009 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Turnstile;
+			productName = Turnstile;
+			productReference = 100000000000000000000006 /* Turnstile.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		100000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					100000000000000000000005 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = 100000000000000000000010 /* Build configuration list for PBXProject "Turnstile" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 100000000000000000000002;
+			productRefGroup = 100000000000000000000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				100000000000000000000005 /* Turnstile */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		100000000000000000000009 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D10000000000000000000210 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		100000000000000000000007 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D10000000000000000000201 /* TurnstileApp.swift in Sources */,
+				D10000000000000000000202 /* Models.swift in Sources */,
+				D10000000000000000000203 /* API.swift in Sources */,
+				D10000000000000000000204 /* Keychain.swift in Sources */,
+				D10000000000000000000205 /* AppModel.swift in Sources */,
+				D10000000000000000000206 /* Components.swift in Sources */,
+				D10000000000000000000207 /* TodayView.swift in Sources */,
+				D10000000000000000000208 /* MachineView.swift in Sources */,
+				D10000000000000000000209 /* RevealView.swift in Sources */,
+				D1000000000000000000020A /* RulePickerView.swift in Sources */,
+				D1000000000000000000020B /* YesterdayView.swift in Sources */,
+				D1000000000000000000020C /* LeaderboardView.swift in Sources */,
+				D1000000000000000000020D /* YouView.swift in Sources */,
+				D1000000000000000000020E /* HelpView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		100000000000000000000012 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		100000000000000000000013 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		100000000000000000000014 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				CODE_SIGN_ENTITLEMENTS = Turnstile/Turnstile.entitlements;
+				INFOPLIST_KEY_CFBundleDisplayName = "Turnstile";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tech.advancedfield.Turnstile;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		100000000000000000000015 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				CODE_SIGN_ENTITLEMENTS = Turnstile/Turnstile.entitlements;
+				INFOPLIST_KEY_CFBundleDisplayName = "Turnstile";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tech.advancedfield.Turnstile;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		100000000000000000000010 /* Build configuration list for PBXProject "Turnstile" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				100000000000000000000012 /* Debug */,
+				100000000000000000000013 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		100000000000000000000011 /* Build configuration list for PBXNativeTarget "Turnstile" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				100000000000000000000014 /* Debug */,
+				100000000000000000000015 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 100000000000000000000001 /* Project object */;
+}

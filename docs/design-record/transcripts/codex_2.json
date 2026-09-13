@@ -1,0 +1,125 @@
+{
+  "author": "codex",
+  "machine": "2",
+  "investigator": "claude",
+  "phase": "answered",
+  "events": [
+    {
+      "note": "6 consistent (all ORs): C1 pos2 circle OR pos3 square; C2 pos2 circle OR pos1 blue; C3 pos2 circle OR pos3 blue; C4 pos2 circle OR exactly 2 blue; C5 exactly 2 yellow OR pos3 blue; C6 pos3 square OR pos3 blue. No AND/single/NOT fits (Cr Sb Cy rejected kills 'first is circle'). Q1 'Cy Sy Tb' splits: ACCEPT -> {C3,C5,C6}; REJECT -> {C1,C2,C4}.",
+      "after_queries": 0
+    },
+    {
+      "query": [
+        2,
+        5,
+        7
+      ],
+      "accepted": true
+    },
+    {
+      "note": "Left {C3 pos2 circle OR pos3 blue; C5 exactly 2 yellow OR pos3 blue; C6 pos3 square OR pos3 blue}. Q2 'Sr Cr Ty': ACCEPT -> C3; REJECT -> {C5, C6}.",
+      "after_queries": 1
+    },
+    {
+      "query": [
+        3,
+        0,
+        8
+      ],
+      "accepted": true
+    },
+    {
+      "note": "ACCEPT -> C3: second tile is a circle OR third tile is blue. Confirmation Q3 'Tr Cy Sr' (pos2 circle, third red): expect ACCEPT under C3.",
+      "after_queries": 2
+    },
+    {
+      "query": [
+        6,
+        2,
+        3
+      ],
+      "accepted": true
+    },
+    {
+      "tests_revealed_after_queries": 3
+    },
+    {
+      "answers": [
+        "A",
+        "A",
+        "R",
+        "R"
+      ],
+      "score": 4
+    },
+    {
+      "star": {
+        "op": "or",
+        "a": {
+          "op": "pos",
+          "i": 2,
+          "attr": "shape",
+          "value": "circle"
+        },
+        "b": {
+          "op": "pos",
+          "i": 3,
+          "attr": "colour",
+          "value": "blue"
+        }
+      },
+      "hit": true
+    }
+  ],
+  "queries": [
+    {
+      "seq": [
+        2,
+        5,
+        7
+      ],
+      "accepted": true
+    },
+    {
+      "seq": [
+        3,
+        0,
+        8
+      ],
+      "accepted": true
+    },
+    {
+      "seq": [
+        6,
+        2,
+        3
+      ],
+      "accepted": true
+    }
+  ],
+  "answers": [
+    true,
+    true,
+    false,
+    false
+  ],
+  "score": 4,
+  "star": {
+    "ast": {
+      "op": "or",
+      "a": {
+        "op": "pos",
+        "i": 2,
+        "attr": "shape",
+        "value": "circle"
+      },
+      "b": {
+        "op": "pos",
+        "i": 3,
+        "attr": "colour",
+        "value": "blue"
+      }
+    },
+    "hit": true
+  }
+}

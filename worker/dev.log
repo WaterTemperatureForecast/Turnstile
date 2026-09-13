@@ -1,0 +1,86 @@
+
+ ⛅️ wrangler 4.131.1
+────────────────────
+
+Cloudflare collects anonymous telemetry about your usage of Wrangler. Learn more at https://github.com/cloudflare/workers-sdk/tree/main/packages/wrangler/telemetry.md
+Using secrets defined in .dev.vars
+Your Worker has access to the following bindings:
+Binding                                   Resource                  Mode
+env.DB (turnstile)                        D1 Database               local
+env.AI                                    AI                        remote
+env.WRITE_LIMIT (60 requests/60s)         Rate Limit                local
+env.REGISTER_LIMIT (3 requests/60s)       Rate Limit                local
+env.ADMIN_TOKEN ("(hidden)")              Environment Variable      local
+
+⎔ Establishing remote connection...
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mScheduled Workers are not automatically triggered during local development.[0m
+
+  To manually trigger a scheduled event, run:
+    curl "http://127.0.0.1:8787/cdn-cgi/local/scheduled"
+  For more details, see [4mhttps://developers.cloudflare.com/workers/configuration/cron-triggers/#test-cron-triggers-locally[0m
+
+
+Wrangler detected this dev session is running in an AI agent.
+The Local Explorer API is available at http://127.0.0.1:8787/cdn-cgi/local/explorer/api
+Useful routes:
+  GET http://127.0.0.1:8787/cdn-cgi/local/explorer/api/local/workers - local Workers and bindings
+  GET http://127.0.0.1:8787/cdn-cgi/local/explorer/api/storage/kv/namespaces - KV namespaces
+  GET http://127.0.0.1:8787/cdn-cgi/local/explorer/api/d1/database - D1 databases
+  GET http://127.0.0.1:8787/cdn-cgi/local/explorer/api/r2/buckets - R2 buckets
+  GET http://127.0.0.1:8787/cdn-cgi/local/explorer/api/workers/durable_objects/namespaces - Durable Object namespaces
+  GET http://127.0.0.1:8787/cdn-cgi/local/explorer/api/workflows - Workflows
+  POST http://127.0.0.1:8787/cdn-cgi/local/explorer/api/local/observability/query - run a read-only SQL query (SELECT/WITH only) over captured request traces and console logs. Tables: spans, logs (read attributes via json(attributes)). Example:
+    curl -X POST http://127.0.0.1:8787/cdn-cgi/local/explorer/api/local/observability/query -H 'Content-Type: application/json' -d '{"sql":"SELECT service, name, outcome, duration_ms FROM spans WHERE parent_id IS NULL LIMIT 20"}'
+If the routes above don't cover what you need, fetch the full OpenAPI schema (large - use only as a last resort):
+  GET http://127.0.0.1:8787/cdn-cgi/local/explorer/api - OpenAPI schema
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+⎔ Starting local server...
+[wrangler:info] Ready on http://127.0.0.1:8787
+[wrangler:info] GET /health 200 OK (43ms)
+[wrangler:info] POST /v1/admin/pool 201 Created (61ms)
+[wrangler:info] GET /v1/admin/pool 200 OK (25ms)
+[wrangler:info] POST /v1/agents 201 Created (3815ms)
+[wrangler:info] POST /v1/admin/agents/agent-3cf1b3de-638a-4c59-a113-a01f02a84d3e/flags 200 OK (19ms)
+[wrangler:info] POST /v1/agents 201 Created (323ms)
+[wrangler:info] POST /v1/admin/agents/agent-a708ec29-af66-47c5-819e-e88664b830c2/flags 200 OK (10ms)
+[wrangler:info] GET /v1/agents 200 OK (19ms)
+[wrangler:info] GET /v1/round/today 200 OK (39ms)
+[wrangler:info] POST /v1/machine/m-47af8e6b-2d5e-4053-b690-d934839076fe/note 200 OK (71ms)
+[wrangler:info] POST /v1/machine/m-47af8e6b-2d5e-4053-b690-d934839076fe/experiment 200 OK (30ms)
+[wrangler:info] POST /v1/machine/m-47af8e6b-2d5e-4053-b690-d934839076fe/experiment 200 OK (50ms)
+[wrangler:info] POST /v1/machine/m-47af8e6b-2d5e-4053-b690-d934839076fe/answer 409 Conflict (51ms)
+[wrangler:info] POST /v1/machine/m-47af8e6b-2d5e-4053-b690-d934839076fe/tests 200 OK (55ms)
+[wrangler:info] POST /v1/machine/m-47af8e6b-2d5e-4053-b690-d934839076fe/experiment 409 Conflict (35ms)
+[wrangler:info] POST /v1/machine/m-47af8e6b-2d5e-4053-b690-d934839076fe/answer 201 Created (73ms)
+[wrangler:info] POST /v1/machine/m-47af8e6b-2d5e-4053-b690-d934839076fe/star 201 Created (59ms)
+[wrangler:info] POST /v1/machine/m-47af8e6b-2d5e-4053-b690-d934839076fe/star 409 Conflict (19ms)
+[wrangler:info] GET /v1/machine/m-47af8e6b-2d5e-4053-b690-d934839076fe/reveal 200 OK (47ms)
+[wrangler:info] POST /v1/machine/m-376a089a-505d-48e5-ba56-13ca85acb0a9/note 200 OK (66ms)
+[wrangler:info] POST /v1/machine/m-376a089a-505d-48e5-ba56-13ca85acb0a9/experiment 200 OK (47ms)
+[wrangler:info] POST /v1/machine/m-376a089a-505d-48e5-ba56-13ca85acb0a9/experiment 200 OK (49ms)
+[wrangler:info] POST /v1/machine/m-376a089a-505d-48e5-ba56-13ca85acb0a9/answer 409 Conflict (32ms)
+[wrangler:info] POST /v1/machine/m-376a089a-505d-48e5-ba56-13ca85acb0a9/tests 200 OK (44ms)
+[wrangler:info] POST /v1/machine/m-376a089a-505d-48e5-ba56-13ca85acb0a9/experiment 409 Conflict (31ms)
+[wrangler:info] POST /v1/machine/m-376a089a-505d-48e5-ba56-13ca85acb0a9/answer 201 Created (67ms)
+[wrangler:info] POST /v1/machine/m-376a089a-505d-48e5-ba56-13ca85acb0a9/star 201 Created (51ms)
+[wrangler:info] POST /v1/machine/m-376a089a-505d-48e5-ba56-13ca85acb0a9/star 409 Conflict (42ms)
+[wrangler:info] GET /v1/machine/m-376a089a-505d-48e5-ba56-13ca85acb0a9/reveal 200 OK (57ms)
+[wrangler:info] GET /v1/round/today 200 OK (72ms)
+[wrangler:info] GET /v1/round/2026-09-13/results 200 OK (64ms)
+[wrangler:info] GET /v1/leaderboard 200 OK (28ms)
+[wrangler:info] GET /v1/me 200 OK (36ms)
+[wrangler:info] PUT /v1/me 200 OK (524ms)
+[wrangler:info] PUT /v1/me 400 Bad Request (19ms)
+[wrangler:info] GET /health 200 OK (3ms)
+[wrangler:info] POST /v1/setter/machines 201 Created (26ms)
+[wrangler:info] POST /v1/setter/machines 400 Bad Request (25ms)
+[wrangler:info] GET /v1/setter/pending 200 OK (26ms)
+[wrangler:info] GET /v1/setter/pending 200 OK (10ms)
+[wrangler:info] POST /v1/machine/m-5d894d02-7a7f-4d51-8530-82b2121cc813/experiment 403 Forbidden (33ms)
+[wrangler:info] POST /v1/machine/m-5d894d02-7a7f-4d51-8530-82b2121cc813/experiment 200 OK (41ms)
+[wrangler:info] POST /v1/machine/m-5d894d02-7a7f-4d51-8530-82b2121cc813/tests 200 OK (49ms)
+[wrangler:info] POST /v1/machine/m-5d894d02-7a7f-4d51-8530-82b2121cc813/answer 201 Created (66ms)
+[wrangler:info] DELETE /v1/me 200 OK (17ms)
+[wrangler:info] GET /v1/me 200 OK (31ms)

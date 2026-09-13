@@ -1,0 +1,127 @@
+{
+  "author": "claude",
+  "machine": "1",
+  "investigator": "codex",
+  "phase": "answered",
+  "events": [
+    {
+      "note": "The accepts have uniform shapes and the rejects have three different shapes. First hypothesis: all shapes the same. Alternatives include any particular pair sharing shape, NOT all shapes different, or exactly zero circles. Query Cr,Cr,Sb predicts REJECT under all-same and zero-circles, but ACCEPT under positions 1=2 or NOT all-different; it separates those explanations.",
+      "after_queries": 0
+    },
+    {
+      "query": [
+        0,
+        0,
+        4
+      ],
+      "accepted": false
+    },
+    {
+      "note": "Cr,Cr,Sb was rejected as predicted by all-same. It rules out match(1,2), NOT all-different, and position 2 red. Still plausible: all-same shapes, match(1,3), match(2,3), zero circles, position 1 not circle, or NOT exactly one square. Query Sb,Ty,Sb should reject for all-same and match(2,3), but accept for the other listed candidates.",
+      "after_queries": 1
+    },
+    {
+      "query": [
+        4,
+        8,
+        4
+      ],
+      "accepted": true
+    },
+    {
+      "note": "Sb,Ty,Sb ACCEPT falsifies my initial all-same rule. The live explanations are match shapes at 1 and 3, no circles, position 1 not circle, and NOT exactly one square. Query Cr,Tr,Cr predicts ACCEPT for match(1,3) and NOT exactly one square, REJECT for no circles and position 1 not circle.",
+      "after_queries": 2
+    },
+    {
+      "query": [
+        0,
+        6,
+        0
+      ],
+      "accepted": true
+    },
+    {
+      "note": "Cr,Tr,Cr ACCEPT leaves match shapes at positions 1 and 3 versus NOT exactly one square among my candidates. Query Cr,Sb,Cy predicts ACCEPT for the shape match and REJECT for NOT exactly one square. The differing endpoint colours also keep this explicitly a shape test.",
+      "after_queries": 3
+    },
+    {
+      "query": [
+        0,
+        4,
+        2
+      ],
+      "accepted": true
+    },
+    {
+      "tests_revealed_after_queries": 4
+    },
+    {
+      "answers": [
+        "A",
+        "R",
+        "R",
+        "A"
+      ],
+      "score": 4
+    },
+    {
+      "star": {
+        "op": "same",
+        "attr": "shape",
+        "i": 1,
+        "j": 3
+      },
+      "hit": true
+    }
+  ],
+  "queries": [
+    {
+      "seq": [
+        0,
+        0,
+        4
+      ],
+      "accepted": false
+    },
+    {
+      "seq": [
+        4,
+        8,
+        4
+      ],
+      "accepted": true
+    },
+    {
+      "seq": [
+        0,
+        6,
+        0
+      ],
+      "accepted": true
+    },
+    {
+      "seq": [
+        0,
+        4,
+        2
+      ],
+      "accepted": true
+    }
+  ],
+  "answers": [
+    true,
+    false,
+    false,
+    true
+  ],
+  "score": 4,
+  "star": {
+    "ast": {
+      "op": "same",
+      "attr": "shape",
+      "i": 1,
+      "j": 3
+    },
+    "hit": true
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "author": "codex",
+  "machine": "1",
+  "investigator": "claude",
+  "phase": "answered",
+  "events": [
+    {
+      "note": "Pairs differ only in tile-1 colour (r vs b). 8 consistent: first red; first not blue; exactly 1 red; >=1 red; exactly 1 blue; not exactly 2 blue; all colours differ; first two colours differ. Q1 'Cr Sr Ty' splits 4/4: ACCEPT -> {first red, first not blue, >=1 red, not-2-blue}; REJECT -> {exactly 1 red, exactly 1 blue, all differ, first-two differ}.",
+      "after_queries": 0
+    },
+    {
+      "query": [
+        0,
+        3,
+        8
+      ],
+      "accepted": false
+    },
+    {
+      "note": "REJECT kills first-red family. Left: exactly 1 red; exactly 1 blue; all colours differ; first-two differ. Q2 'Cr Sy Ty' (r,y,y): ACCEPT -> {exactly 1 red, first-two differ}; REJECT -> {exactly 1 blue, all differ}.",
+      "after_queries": 1
+    },
+    {
+      "query": [
+        0,
+        5,
+        8
+      ],
+      "accepted": true
+    },
+    {
+      "note": "Left: exactly 1 red vs first-two colours differ. Q3 'Cy Sb Ty' (y,b,y; no red, first two differ): ACCEPT -> first-two differ; REJECT -> exactly 1 red.",
+      "after_queries": 2
+    },
+    {
+      "query": [
+        2,
+        4,
+        8
+      ],
+      "accepted": false
+    },
+    {
+      "note": "Confident: exactly 1 red tile (3 queries). Skipping query 4.",
+      "after_queries": 3
+    },
+    {
+      "tests_revealed_after_queries": 3
+    },
+    {
+      "answers": [
+        "A",
+        "A",
+        "R",
+        "R"
+      ],
+      "score": 4
+    },
+    {
+      "star": {
+        "op": "count",
+        "attr": "colour",
+        "value": "red",
+        "n": 1
+      },
+      "hit": true
+    }
+  ],
+  "queries": [
+    {
+      "seq": [
+        0,
+        3,
+        8
+      ],
+      "accepted": false
+    },
+    {
+      "seq": [
+        0,
+        5,
+        8
+      ],
+      "accepted": true
+    },
+    {
+      "seq": [
+        2,
+        4,
+        8
+      ],
+      "accepted": false
+    }
+  ],
+  "answers": [
+    true,
+    true,
+    false,
+    false
+  ],
+  "score": 4,
+  "star": {
+    "ast": {
+      "op": "count",
+      "attr": "colour",
+      "value": "red",
+      "n": 1
+    },
+    "hit": true
+  }
+}

@@ -1,0 +1,90 @@
+# Codemagic CI — build Turnstile (native SwiftUI) and publish to TestFlight.
+# No Mac needed: Codemagic's cloud macOS workers do the archive + upload.
+# Same rig as Schelling / Vault Seven / TagTerm — see CODEMAGIC.md.
+#
+# This file must sit at the REPO ROOT, next to Turnstile.xcodeproj.
+
+workflows:
+  ios-testflight:
+    name: Turnstile iOS → TestFlight
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+
+    # App Store Connect API key added in the Codemagic UI
+    # (Teams → Integrations → App Store Connect). Must match the key's name.
+    integrations:
+      app_store_connect: Codemagic_Admin
+
+    environment:
+      xcode: latest
+      # Secret variable group in the Codemagic UI containing
+      #   CERTIFICATE_PRIVATE_KEY — RSA private key (PEM) the iOS Distribution
+      #   certificate is created from / matched against. Shared with the sibling apps.
+      groups:
+        - appstore_credentials
+      vars:
+        XCODE_PROJECT: "Turnstile.xcodeproj"
+        XCODE_SCHEME: "Turnstile"
+        BUNDLE_ID: "tech.advancedfield.Turnstile"
+
+    scripts:
+      - name: Set a unique build number
+        script: |
+          sed -i '' "s/CURRENT_PROJECT_VERSION = [0-9]*;/CURRENT_PROJECT_VERSION = $BUILD_NUMBER;/g" \
+            "$XCODE_PROJECT/project.pbxproj"
+
+      - name: Create / fetch signing certificate + provisioning profile
+        script: |
+          set -e
+          echo "ASC auth -> issuer:${APP_STORE_CONNECT_ISSUER_ID:-MISSING} key:${APP_STORE_CONNECT_KEY_IDENTIFIER:-MISSING} pk_chars:${#APP_STORE_CONNECT_PRIVATE_KEY}"
+          # Accept the key either as the PEM itself (CERTIFICATE_PRIVATE_KEY) or as one
+          # base64 line (CERTIFICATE_PRIVATE_KEY_B64), and strip any Windows line endings
+          # a copy-paste may have introduced; both mistakes surface as "not valid".
+          if [ -n "${CERTIFICATE_PRIVATE_KEY_B64:-}" ]; then
+            CERTIFICATE_PRIVATE_KEY="$(printf '%s' "$CERTIFICATE_PRIVATE_KEY_B64" | tr -d ' \n\r' | base64 -d)"
+          fi
+          CERTIFICATE_PRIVATE_KEY="$(printf '%s' "$CERTIFICATE_PRIVATE_KEY" | tr -d '\r')"
+          export CERTIFICATE_PRIVATE_KEY
+          echo "key: ${#CERTIFICATE_PRIVATE_KEY} chars, $(printf '%s' "$CERTIFICATE_PRIVATE_KEY" | head -c 27)"
+          keychain initialize
+          # --create makes the iOS Distribution certificate AND the App Store
+          # provisioning profile if they don't exist yet (needed on a fresh app).
+          app-store-connect fetch-signing-files "$BUNDLE_ID" \
+            --type IOS_APP_STORE \
+            --create
+          keychain add-certificates
+          echo "--- downloaded profiles ---"
+          ls -la "$HOME/Library/MobileDevice/Provisioning Profiles/"
+          xcode-project use-profiles
+          # If use-profiles wrote nothing, inject the signing settings ourselves.
+          if ! grep -q PROVISIONING_PROFILE_SPECIFIER "$XCODE_PROJECT/project.pbxproj"; then
+            echo "use-profiles applied nothing — injecting signing settings manually"
+            PROFILE=$(ls "$HOME/Library/MobileDevice/Provisioning Profiles/"*.mobileprovision | head -1)
+            security cms -D -i "$PROFILE" > /tmp/profile.plist
+            PROFILE_NAME=$(/usr/libexec/PlistBuddy -c "Print :Name" /tmp/profile.plist)
+            TEAM_ID=$(/usr/libexec/PlistBuddy -c "Print :TeamIdentifier:0" /tmp/profile.plist)
+            echo "profile: $PROFILE_NAME team: $TEAM_ID"
+            sed -i '' "s/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Manual; DEVELOPMENT_TEAM = $TEAM_ID; PROVISIONING_PROFILE_SPECIFIER = \"$PROFILE_NAME\"; CODE_SIGN_IDENTITY = \"Apple Distribution\";/g" \
+              "$XCODE_PROJECT/project.pbxproj"
+          fi
+          echo "--- signing settings now in project ---"
+          grep -n "CODE_SIGN_STYLE\|PROVISIONING_PROFILE_SPECIFIER\|DEVELOPMENT_TEAM" "$XCODE_PROJECT/project.pbxproj"
+
+      - name: Build a signed IPA
+        script: |
+          xcode-project build-ipa \
+            --project "$XCODE_PROJECT" \
+            --scheme "$XCODE_SCHEME"
+
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+
+    publishing:
+      # Upload to App Store Connect and submit the build to TestFlight.
+      # The Test Info (beta description, feedback email, review contact) must be
+      # filled in once in App Store Connect before external testing can start.
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
