@@ -73,27 +73,52 @@ def read_token(brain):
         return fh.read().strip()
 
 
-def ask(brain, prompt):
-    """One model call through the owner's subscription CLI. Returns the reply text."""
+CALL_TIMEOUT = int(os.environ.get("TURNSTILE_CLI_TIMEOUT", "300"))   # a real call is ~70 s; a hung one must not eat the window
+
+
+def ask(brain, prompt, attempts=2):
+    """One model call through the owner's subscription CLI. Returns the reply text.
+
+    A hung CLI is retried once with a fresh process; both CLIs occasionally
+    stall for far longer than a normal call (observed 2026-09-13: 900 s with no
+    output where the same prompt normally answers in ~70 s). Returns "" when
+    every attempt fails, so the caller can stop cleanly and resume next run.
+    """
     b = BRAINS[brain]
-    if b["cli"] == "codex":
-        with tempfile.TemporaryDirectory() as tmp:
-            out = os.path.join(tmp, "answer.txt")
-            subprocess.run(
-                [CODEX, "exec", "-C", tmp, "--skip-git-repo-check", "-s", "read-only", "--color", "never", "--ephemeral", "-o", out, "-"],
-                input=prompt, text=True, capture_output=True, timeout=900, encoding="utf-8",
-            )
-            return open(out, encoding="utf-8").read() if os.path.exists(out) else ""
-    proc = subprocess.run(
-        [CLAUDE, "-p", "--output-format", "text", "--model", b["model"]],
-        input=prompt, text=True, capture_output=True, timeout=900, encoding="utf-8", shell=(os.name == "nt"),
-    )
-    return proc.stdout
+    for attempt in range(attempts):
+        try:
+            if b["cli"] == "codex":
+                with tempfile.TemporaryDirectory() as tmp:
+                    out = os.path.join(tmp, "answer.txt")
+                    subprocess.run(
+                        [CODEX, "exec", "-C", tmp, "--skip-git-repo-check", "-s", "read-only", "--color", "never", "--ephemeral", "-o", out, "-"],
+                        input=prompt, text=True, capture_output=True, timeout=CALL_TIMEOUT, encoding="utf-8",
+                    )
+                    text = open(out, encoding="utf-8").read() if os.path.exists(out) else ""
+            else:
+                proc = subprocess.run(
+                    [CLAUDE, "-p", "--output-format", "text", "--model", b["model"]],
+                    input=prompt, text=True, capture_output=True, timeout=CALL_TIMEOUT, encoding="utf-8", shell=(os.name == "nt"),
+                )
+                text = proc.stdout or ""
+            if text.strip():
+                return text
+            log(f"{brain}: empty reply on attempt {attempt + 1}")
+        except subprocess.TimeoutExpired:
+            log(f"{brain}: CLI timed out after {CALL_TIMEOUT}s on attempt {attempt + 1}")
+    return ""
 
 
-def first_json_object(text):
-    """The first {...} in the reply that parses (CLIs print other braces too)."""
-    depth, start = 0, None
+def first_json_object(text, any_of=()):
+    """The first {...} in the reply that parses (CLIs write prose around it).
+
+    `any_of` is a set of key groups; an object counts only if it has every key
+    of at least one group, so a rule AST quoted mid-explanation is not mistaken
+    for the answer.
+    """
+    if not text.strip():
+        raise ValueError("empty reply from the CLI")
+    depth, start, best = 0, None, None
     for i, ch in enumerate(text):
         if ch == "{":
             if depth == 0:
@@ -103,10 +128,19 @@ def first_json_object(text):
             depth -= 1
             if depth == 0 and start is not None:
                 try:
-                    return json.loads(text[start:i + 1])
+                    obj = json.loads(text[start:i + 1])
                 except json.JSONDecodeError:
                     start = None
-    raise ValueError("no JSON object in reply: " + " ".join(text[:300].split()))
+                    continue
+                if not any_of:
+                    return obj
+                if any(all(k in obj for k in group) for group in any_of):
+                    return obj
+                best = best or obj
+                start = None
+    if best is not None and not any_of:
+        return best
+    raise ValueError("no usable JSON object in reply: " + " ".join(text[:300].split()))
 
 
 def seq_words(seq):

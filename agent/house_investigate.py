@@ -77,11 +77,18 @@ def play_machine(brain, token, m):
         return
     queries = play.get("queries", []) if isinstance(play.get("queries"), list) else []
     while phase == "experiments" and len(queries) < MAX_EXPERIMENTS:
-        obj = first_json_object(ask(brain, experiment_prompt(tier, examples, queries)))
-        if obj.get("done"):
-            log(f"{brain}: stopping early: {obj.get('note', '')}")
+        try:
+            obj = first_json_object(ask(brain, experiment_prompt(tier, examples, queries)),
+                                    any_of=(("seq",), ("done",)))
+            if obj.get("done"):
+                log(f"{brain}: stopping early: {obj.get('note', '')}")
+                break
+            seq = rules.sequence(obj["seq"])
+        except (ValueError, KeyError, TypeError) as e:
+            # The CLI hung or answered unusably. Experiments already run are
+            # stored server-side, so the next scheduled run picks up here.
+            log(f"{brain}: giving up on more experiments for {mid}: {e}")
             break
-        seq = rules.sequence(obj["seq"])
         note = str(obj.get("note", "")).strip()[:120]
         st, res = call("POST", f"/v1/machine/{mid}/experiment", {"seq": list(seq), "note": note}, token=token)
         if st != 200:
@@ -92,7 +99,7 @@ def play_machine(brain, token, m):
     if st != 200:
         sys.exit(f"tests failed ({st}): {res}")
     tests = res["tests"]
-    obj = first_json_object(ask(brain, answer_prompt(tier, examples, queries, tests)))
+    obj = first_json_object(ask(brain, answer_prompt(tier, examples, queries, tests)), any_of=(("answers",),))
     answers = [bool(a) for a in obj["answers"]]
     if len(answers) != 4:
         raise ValueError("need four answers")

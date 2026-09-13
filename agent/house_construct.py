@@ -110,7 +110,7 @@ def main():
     for attempt in range(3):
         reply = ask(brain, build_prompt(tier, date, feedback))
         try:
-            obj = first_json_object(reply)
+            obj = first_json_object(reply, any_of=(("rule", "decoy"),))
             rule_ast, decoy_ast = obj["rule"], obj["decoy"]
             rules.check_ast(rule_ast)
             rules.check_ast(decoy_ast)
