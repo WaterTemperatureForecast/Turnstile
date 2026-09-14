@@ -86,18 +86,21 @@ if ver:
     v = ver[0]
     print(f"version {v['attributes']['versionString']} ({v['attributes']['appStoreState']})")
     st, cur = call("GET", f"/v1/appStoreVersions/{v['id']}/build?fields[builds]=version")
-    attached = (cur.get("data") or {}).get("id") if st == 200 else None
+    attached = cur.get("data") if st == 200 else None
     valid = [b for b in builds if b["attributes"]["processingState"] == "VALID" and not b["attributes"].get("expired")]
-    if attached:
-        print("  build already attached")
-    elif not valid:
+    newest = valid[0] if valid else None   # builds are sorted newest first
+    if not newest:
         print("  no VALID build to attach yet")
+    elif attached and attached.get("id") == newest["id"]:
+        print(f"  newest build {newest['attributes']['version']} is already attached")
     elif not APPLY:
-        print(f"  build {valid[0]['attributes']['version']} is ready to attach (re-run with --apply)")
+        was = f" (replacing build {attached['attributes']['version']})" if attached else ""
+        print(f"  build {newest['attributes']['version']} is ready to attach{was}; re-run with --apply")
     else:
         need(*call("PATCH", f"/v1/appStoreVersions/{v['id']}/relationships/build",
-                   {"data": {"type": "builds", "id": valid[0]["id"]}}), "attach build")
-        print(f"  attached build {valid[0]['attributes']['version']}")
+                   {"data": {"type": "builds", "id": newest["id"]}}), "attach build")
+        was = f", replacing build {attached['attributes']['version']}" if attached else ""
+        print(f"  attached build {newest['attributes']['version']}{was}")
 
 # ---- what is left ----
 st, usages = call("GET", f"/v1/apps/{APP}/appDataUsages?limit=1")
