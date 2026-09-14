@@ -54,11 +54,11 @@ struct MachineView: View {
                 }
             }
         }
-        .confirmationDialog("Stop experimenting?", isPresented: $confirmTests, titleVisibility: .visible) {
-            Button("Show me the tests") { Task { await showTests() } }
-            Button("Keep experimenting", role: .cancel) {}
+        .confirmationDialog("Ready for the final four?", isPresented: $confirmTests, titleVisibility: .visible) {
+            Button("Show me the final four") { Task { await showTests() } }
+            Button("Keep trying rows", role: .cancel) {}
         } message: {
-            Text("You still have experiments left. Once the tests are shown you cannot run more.")
+            Text("You still have tries left, and they cost you nothing. Once the final four are shown you cannot try any more rows.")
         }
     }
 
@@ -66,8 +66,9 @@ struct MachineView: View {
 
     private func examples(_ m: Machine) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("The machine accepts some sequences and rejects others.")
+            Text("This machine follows a secret rule. It accepted these rows and rejected these.")
                 .font(.subheadline).foregroundColor(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
             ForEach(Array(m.examples.enumerated()), id: \.offset) { _, ex in
                 ExampleRow(seq: ex.seq, accepted: ex.accepted)
             }
@@ -78,7 +79,7 @@ struct MachineView: View {
     @ViewBuilder private func experiments(_ m: Machine) -> some View {
         if !m.play.queries.isEmpty {
             VStack(alignment: .leading, spacing: 10) {
-                Text("Your experiments").font(.caption.weight(.semibold)).foregroundColor(.secondary)
+                Text("Rows you tried").font(.caption.weight(.semibold)).foregroundColor(.secondary)
                 ForEach(Array(m.play.queries.enumerated()), id: \.offset) { i, q in
                     HStack(alignment: .top, spacing: 8) {
                         Text("\(i + 1)").font(.caption.weight(.bold)).frame(width: 18, height: 18)
@@ -96,13 +97,13 @@ struct MachineView: View {
         let left = m.max_experiments - used
         return VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("Experiment \(used + 1) of \(m.max_experiments)").font(.headline)
+                Text("Your turn (\(used + 1) of \(m.max_experiments))").font(.headline)
                 Spacer()
                 if let v = lastVerdict {
                     VerdictBadge(accepted: v).transition(.opacity)
                 }
             }
-            Text("Build a sequence and the machine tells you accept or reject. Pick the one that separates what you think it could be.")
+            Text("Build a row of three tiles and the machine will accept it or reject it. Try a row that would prove one of your hunches wrong.")
                 .font(.footnote).foregroundColor(.secondary).fixedSize(horizontal: false, vertical: true)
             HStack(spacing: 10) {
                 ForEach(0..<3, id: \.self) { i in
@@ -130,7 +131,7 @@ struct MachineView: View {
             palette
             HStack {
                 Image(systemName: "lightbulb").foregroundColor(.secondary)
-                TextField("What do you think the rule is? (optional, private)", text: $note, axis: .vertical)
+                TextField("Your hunch, just for you (optional)", text: $note, axis: .vertical)
                     .font(.subheadline)
                     .lineLimit(1...3)
                     .focused($noteFocused)
@@ -151,7 +152,7 @@ struct MachineView: View {
             Button {
                 if left > 0 { confirmTests = true } else { Task { await showTests() } }
             } label: {
-                Text(left > 0 ? "I'm ready — show me the tests" : "Show me the tests")
+                Text(left > 0 ? "I think I've got it" : "Show me the final four")
                     .frame(maxWidth: .infinity)
             }
             .buttonStyle(.bordered)
@@ -177,9 +178,10 @@ struct MachineView: View {
 
     private func classify(_ m: Machine) -> some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("The tests").font(.headline)
-            Text("Which of these does the machine accept? Decide all four, then lock in.")
+            Text("The final four").font(.headline)
+            Text("Which of these rows does the machine accept? Exactly two of them. Call all four, then lock in.")
                 .font(.footnote).foregroundColor(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
             ForEach(Array((m.play.tests ?? []).enumerated()), id: \.offset) { i, seq in
                 HStack {
                     Text("\(i + 1)").font(.caption.weight(.bold)).frame(width: 18)
@@ -223,7 +225,7 @@ struct MachineView: View {
                                 .foregroundColor(answers[i] == rv.truth[i] ? .green : .red)
                             SequenceView(seq: seq, size: 28)
                             Spacer()
-                            Text("you: \(answers[i] ? "accept" : "reject")").font(.caption).foregroundColor(.secondary)
+                            Text("you said \(answers[i] ? "accept" : "reject")").font(.caption).foregroundColor(.secondary)
                             VerdictBadge(accepted: rv.truth[i], compact: true)
                         }
                     }
@@ -253,21 +255,26 @@ struct MachineView: View {
                     Text("You said: \(RuleText.describe(r))").font(.subheadline).foregroundColor(.secondary)
                 }
                 if let sr = starResult, let ce = sr.counterexample {
-                    HStack {
-                        Text("Counterexample:").font(.caption).foregroundColor(.secondary)
-                        SequenceView(seq: ce.seq, size: 24)
-                        Text("machine \(ce.machine ? "accepts" : "rejects"), yours \(ce.yours ? "accepts" : "rejects")").font(.caption).foregroundColor(.secondary)
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Here is a row where your rule and the machine disagree:")
+                            .font(.caption).foregroundColor(.secondary)
+                        HStack {
+                            SequenceView(seq: ce.seq, size: 24)
+                            Text("the machine \(ce.machine ? "accepts" : "rejects") it, yours \(ce.yours ? "accepts" : "rejects") it")
+                                .font(.caption).foregroundColor(.secondary)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
                     }
                 }
             } else if skipped {
-                Text("Rule guess skipped.").font(.subheadline).foregroundColor(.secondary)
+                Text("You skipped naming the rule.").font(.subheadline).foregroundColor(.secondary)
             } else {
                 Text("Name the rule for a star").font(.headline)
-                Text("Optional. Build what you think the rule is; a star if it matches the machine on every possible sequence.")
+                Text("Optional. Build the rule you think it is. If it behaves exactly like the machine on every possible row, you get a star.")
                     .font(.footnote).foregroundColor(.secondary).fixedSize(horizontal: false, vertical: true)
                 HStack {
                     Button("Build my rule") { showPicker = true }.buttonStyle(.borderedProminent)
-                    Button("Skip, show me the rule") { Task { await skipStar(m) } }.buttonStyle(.bordered)
+                    Button("No thanks") { Task { await skipStar(m) } }.buttonStyle(.bordered)
                 }
             }
         }

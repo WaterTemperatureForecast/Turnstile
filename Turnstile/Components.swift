@@ -196,28 +196,95 @@ struct Countdown: View {
     }
 }
 
-// MARK: - Rule text (mirrors worker/src/rules.ts describe())
+// MARK: - Rule text and meaning (mirrors worker/src/rules.ts)
+
+/// Evaluates a rule on one row of three tiles. Only used so the rule builder
+/// can preview wording exactly as the server would word it.
+enum RuleEval {
+    static func matches(_ r: Rule, _ seq: Seq) -> Bool {
+        switch r.op {
+        case "not": return !(r.a.map { matches($0.rule, seq) } ?? false)
+        case "and": return (r.a.map { matches($0.rule, seq) } ?? false) && (r.b.map { matches($0.rule, seq) } ?? false)
+        case "or": return (r.a.map { matches($0.rule, seq) } ?? false) || (r.b.map { matches($0.rule, seq) } ?? false)
+        case "xor": return (r.a.map { matches($0.rule, seq) } ?? false) != (r.b.map { matches($0.rule, seq) } ?? false)
+        default: break
+        }
+        let values = seq.map { r.attr == "shape" ? Tile.shape($0) : Tile.colour($0) }
+        guard values.count == 3 else { return false }
+        switch r.op {
+        case "pos": return values[max(0, min(2, (r.i ?? 1) - 1))] == (r.value ?? "")
+        case "count": return values.filter { $0 == (r.value ?? "") }.count == (r.n ?? 0)
+        case "same": return values[max(0, min(2, (r.i ?? 1) - 1))] == values[max(0, min(2, (r.j ?? 2) - 1))]
+        case "allsame": return Set(values).count == 1
+        case "alldiff": return Set(values).count == 3
+        default: return false
+        }
+    }
+
+    /// Every possible row, for comparing two rules.
+    static let allRows: [Seq] = (0..<9).flatMap { a in (0..<9).flatMap { b in (0..<9).map { c in [a, b, c] } } }
+}
 
 enum RuleText {
-    static func describe(_ r: Rule) -> String {
-        let pos = ["", "first", "second", "third"]
+    private static let pos = ["", "first", "second", "third"]
+    private static let num = ["no", "one", "two", "three"]
+
+    /// "red tile"/"red tiles" for a colour, "triangle"/"triangles" for a shape.
+    private static func things(_ attr: String, _ value: String, plural: Bool) -> String {
+        let one = attr == "colour" ? "\(value) tile" : value
+        return plural ? one + "s" : one
+    }
+
+    /// One property in plain English, negated if asked.
+    private static func property(_ r: Rule, not: Bool) -> String {
+        let attr = r.attr ?? "colour"
+        let value = r.value ?? ""
         switch r.op {
         case "pos":
-            let i = pos[max(0, min(3, r.i ?? 1))]
-            return r.attr == "colour" ? "the \(i) tile is \(r.value ?? "")" : "the \(i) tile is a \(r.value ?? "")"
+            let where_ = "the \(pos[max(1, min(3, r.i ?? 1))]) tile is\(not ? " not" : "")"
+            return attr == "colour" ? "\(where_) \(value)" : "\(where_) a \(value)"
         case "count":
-            let n = r.n ?? 0
-            if r.attr == "colour" { return "exactly \(n) tile\(n != 1 ? "s" : "") \(n != 1 ? "are" : "is") \(r.value ?? "")" }
-            return "there \(n != 1 ? "are" : "is") exactly \(n) \(r.value ?? "")\(n != 1 ? "s" : "")"
+            let n = max(0, min(3, r.n ?? 0))
+            if !not {
+                if n == 0 { return "there are no \(things(attr, value, plural: true))" }
+                if n == 3 { return attr == "colour" ? "all three tiles are \(value)" : "all three tiles are \(value)s" }
+                return "there \(n == 1 ? "is" : "are") exactly \(num[n]) \(things(attr, value, plural: n != 1))"
+            }
+            if n == 0 { return "there is at least one \(things(attr, value, plural: false))" }
+            if n == 3 { return "the three tiles are not all \(things(attr, value, plural: true))" }
+            return "there \(n == 1 ? "is" : "are") not exactly \(num[n]) \(things(attr, value, plural: n != 1))"
         case "same":
-            return "the \(pos[max(0, min(3, r.i ?? 1))]) and \(pos[max(0, min(3, r.j ?? 2))]) tiles have the same \(r.attr ?? "")"
-        case "allsame": return "all three tiles have the same \(r.attr ?? "")"
-        case "alldiff": return "all three \(r.attr ?? "")s are different"
-        case "not": return "NOT (" + (r.a.map { describe($0.rule) } ?? "…") + ")"
+            let pair = "the \(pos[max(1, min(3, r.i ?? 1))]) and \(pos[max(1, min(3, r.j ?? 2))]) tiles are"
+            return not ? "\(pair) different \(attr)s" : "\(pair) the same \(attr)"
+        case "allsame":
+            return not ? "the three tiles are not all the same \(attr)" : "all three tiles are the same \(attr)"
+        case "alldiff":
+            return not ? "at least two tiles share a \(attr)" : "all three \(attr)s are different"
         default:
-            let a = r.a.map { describe($0.rule) } ?? "…"
-            let b = r.b.map { describe($0.rule) } ?? "…"
-            return "(\(a)) \(r.op.uppercased()) (\(b))"
+            return describe(r)
+        }
+    }
+
+    static func describe(_ r: Rule) -> String {
+        switch r.op {
+        case "not":
+            return r.a.map { property($0.rule, not: true) } ?? "…"
+        case "and":
+            return (r.a.map { property($0.rule, not: false) } ?? "…") + " and " + (r.b.map { property($0.rule, not: false) } ?? "…")
+        case "or":
+            let a = r.a.map { property($0.rule, not: false) } ?? "…"
+            let b = r.b.map { property($0.rule, not: false) } ?? "…"
+            // "or both" only helps when both halves can actually hold at once.
+            let overlap: Bool = {
+                guard let x = r.a?.rule, let y = r.b?.rule else { return true }
+                return RuleEval.allRows.contains { RuleEval.matches(x, $0) && RuleEval.matches(y, $0) }
+            }()
+            return a + ", or " + b + (overlap ? ", or both" : "")
+        case "xor":
+            return (r.a.map { property($0.rule, not: false) } ?? "…") + ", or "
+                + (r.b.map { property($0.rule, not: false) } ?? "…") + ", but not both"
+        default:
+            return property(r, not: false)
         }
     }
 }

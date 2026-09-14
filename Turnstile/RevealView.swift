@@ -31,18 +31,18 @@ struct RevealView: View {
 
     private var stats: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Everyone").font(.caption.weight(.semibold)).foregroundColor(.secondary)
+            Text("Everyone else").font(.caption.weight(.semibold)).foregroundColor(.secondary)
             if reveal.stats.finished == 0 {
                 Text("You are the first person to finish this machine.").font(.subheadline)
             } else {
                 HStack {
-                    stat("\(reveal.stats.finished)", "finished")
+                    stat("\(reveal.stats.finished)", "played")
                     Divider().frame(height: 30)
-                    stat("\(Int((reveal.stats.solved_pct ?? 0).rounded()))%", "scored 4/4")
+                    stat("\(Int((reveal.stats.solved_pct ?? 0).rounded()))%", "got all four")
                     Divider().frame(height: 30)
-                    stat(String(format: "%.1f", reveal.stats.mean_score ?? 0), "mean score")
+                    stat(String(format: "%.1f", reveal.stats.mean_score ?? 0), "average")
                     Divider().frame(height: 30)
-                    stat("\(Int((reveal.stats.star_pct ?? 0).rounded()))%", "named it")
+                    stat("\(Int((reveal.stats.star_pct ?? 0).rounded()))%", "named the rule")
                 }
             }
         }
@@ -65,7 +65,7 @@ struct RevealView: View {
                 Text("\(agent.score)/4").font(.headline.monospacedDigit())
                 if agent.star?.hit == true { Text("★").foregroundColor(.yellow) }
             }
-            Text(agent.queries.isEmpty ? "Went straight to the tests." : "How it investigated, blind, before you saw this machine:")
+            Text(agent.queries.isEmpty ? "Went straight to the final four." : "The rows it tried, before you saw this machine:")
                 .font(.caption).foregroundColor(.secondary)
             ForEach(Array(agent.queries.enumerated()), id: \.offset) { i, q in
                 HStack(alignment: .top, spacing: 8) {
@@ -75,16 +75,16 @@ struct RevealView: View {
                 }
             }
             HStack(spacing: 6) {
-                Text("Tests:").font(.caption).foregroundColor(.secondary)
+                Text("Final four:").font(.caption).foregroundColor(.secondary)
                 ForEach(Array(agent.answers.enumerated()), id: \.offset) { i, a in
                     let right = i < reveal.truth.count && reveal.truth[i] == a
                     Image(systemName: right ? "checkmark.circle.fill" : "xmark.circle.fill")
                         .foregroundColor(right ? .green : .red)
-                        .accessibilityLabel(Text(right ? "test \(i + 1) right" : "test \(i + 1) wrong"))
+                        .accessibilityLabel(Text(right ? "row \(i + 1) right" : "row \(i + 1) wrong"))
                 }
             }
             if let star = agent.star {
-                Text((star.hit ? "Named it: " : "Guessed: ") + star.rule_text)
+                Text((star.hit ? "It named the rule: " : "It guessed: ") + star.rule_text)
                     .font(.caption).foregroundColor(.secondary).fixedSize(horizontal: false, vertical: true)
             }
         }

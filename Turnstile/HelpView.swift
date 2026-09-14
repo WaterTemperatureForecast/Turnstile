@@ -7,40 +7,65 @@ struct HelpView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
-                    section("The game", """
-                    A machine accepts some sequences of three tiles and rejects others, following a secret rule. \
-                    You see a few labelled examples, run up to four experiments of your own, then classify four hidden sequences. \
-                    Four right is a perfect score. There is no penalty for experiments and no clock: thinking slowly is fine.
-                    """)
-                    section("Two machines a day", """
-                    One is built by Claude, one by GPT. Before you see them, each AI has tried to crack the other's machine blind. \
-                    After you finish, the reveal shows the rule, the setter's note about the trap it laid, the rival AI's experiments, \
-                    and how many people solved it.
-                    """)
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Tiles").font(.headline)
-                        HStack(spacing: 8) { ForEach(0..<9, id: \.self) { TileView(tile: $0, size: 32) } }
-                        Text("Three shapes (circle, square, triangle) in three colours (red, blue, yellow). A sequence is three tiles; repeats are allowed.")
-                            .font(.subheadline).foregroundColor(.secondary)
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("The idea").font(.headline)
+                        Text("A machine is following a secret rule. You feed it rows of three tiles: it accepts some and rejects the rest. Work out the rule.")
+                            .font(.subheadline).foregroundColor(.secondary).fixedSize(horizontal: false, vertical: true)
+                        exampleStrip
+                        Text("Here, every accepted row starts and ends with the same colour. That is the sort of thing a rule can be.")
+                            .font(.subheadline).foregroundColor(.secondary).fixedSize(horizontal: false, vertical: true)
                     }
                     .card()
-                    section("What a rule can say", """
-                    • Position: the tile in position 1, 2 or 3 has a given shape or colour.
-                    • Count: exactly N tiles (0 to 3) have a given shape or colour.
-                    • Match: two given positions share their shape, or share their colour.
-                    • All same / all different: the three shapes (or colours) are all the same, or all different.
 
-                    Monday to Wednesday the rule is one of these, or NOT one of these. Thursday to Saturday two can be joined by AND or OR. \
-                    Sunday adds XOR (exactly one of the two).
+                    section("How a turn goes", """
+                    You start with a few rows the machine has already judged. Then you build up to four rows of your own and watch what it does with each one. \
+                    Finally you are shown four rows you have never seen, and you say which ones it accepts. Exactly two of them.
+
+                    Trying rows costs you nothing, and there is no clock. Taking your time is free.
                     """)
-                    section("Fair by construction", """
-                    Every machine is checked by code before it is published: there is always a four-experiment strategy that decides the hidden tests. \
-                    A good experiment is one whose answer separates the rules you still believe in. Write your current guess in the note box if it helps; nobody else sees it.
+
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("The tiles").font(.headline)
+                        HStack(spacing: 8) { ForEach(0..<9, id: \.self) { TileView(tile: $0, size: 32) } }
+                        Text("Three shapes in three colours. A row is any three of them, and the same tile may appear more than once.")
+                            .font(.subheadline).foregroundColor(.secondary).fixedSize(horizontal: false, vertical: true)
+                    }
+                    .card()
+
+                    section("What a rule can be about", """
+                    • Where a tile sits, like “the middle tile is blue”.
+                    • How many, like “exactly two tiles are red”, or “there are no triangles”.
+                    • A pair matching, like “the first and last tiles are the same colour”.
+                    • All three, like “all three shapes are the same”, or “all three colours are different”.
+
+                    That is the whole list. Early in the week the rule is one of these, or the opposite of one. Later in the week it can join two of them together, and Sunday is the hardest.
                     """)
-                    section("Stars and boards", """
-                    After answering you can build the rule you believe in. A star if it matches the machine on every possible sequence; \
-                    if not, you see one sequence where they differ. The daily board ranks score out of 8, then stars, then fewer experiments. \
-                    The Setters board scores Claude and GPT on how well calibrated their machines were for people.
+
+                    section("Picking a good row to try", """
+                    Suppose every accepted row so far starts with red. The rule might be “the first tile is red”, or it might be “exactly one tile is red”. \
+                    A row with two red tiles tells you which: one of those rules accepts it, the other rejects it.
+
+                    That is the whole skill. Try the row whose answer you cannot predict.
+                    """)
+
+                    section("Always solvable", """
+                    Before a machine is published, a program checks that four well-chosen rows are always enough to settle the final four. \
+                    There is no trivia, no trick wording, and nothing you could not have worked out.
+                    """)
+
+                    section("Stars and scores", """
+                    Each machine is worth up to four points, one for each of the final four you call correctly. \
+                    Two machines a day makes eight.
+
+                    After you answer you can name the rule for a star. If your rule behaves exactly like the machine on every possible row you get it, \
+                    and if not you are shown one row where the two of you disagree.
+                    """)
+
+                    section("The two machines", """
+                    One is built each day by Claude and one by GPT. Before you see them, each has tried to crack the other’s machine without any help. \
+                    When you finish you see the rule, a note from whoever built it about the trap they set, how everyone else did, and what the rival made of it.
+
+                    The Board tab also scores the two of them on how well they set: a machine that almost everyone solves is too easy, and one that almost nobody solves is too hard.
                     """)
                 }
                 .padding()
@@ -49,6 +74,16 @@ struct HelpView: View {
             .navigationTitle("How to play")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } } }
+        }
+    }
+
+    /// Two rows through, two turned away, under the rule "first and last tiles are the same colour".
+    private var exampleStrip: some View {
+        VStack(spacing: 8) {
+            ExampleRow(seq: [0, 3, 6], accepted: true)
+            ExampleRow(seq: [1, 4, 7], accepted: true)
+            ExampleRow(seq: [0, 4, 8], accepted: false)
+            ExampleRow(seq: [2, 4, 3], accepted: false)
         }
     }
 

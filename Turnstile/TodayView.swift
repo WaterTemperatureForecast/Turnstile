@@ -80,7 +80,7 @@ struct TodayView: View {
             Spacer()
             VStack(alignment: .trailing, spacing: 2) {
                 Text("\(round.player_count)").font(.headline.monospacedDigit())
-                Text("finished so far").font(.caption).foregroundColor(.secondary)
+                Text("played so far").font(.caption).foregroundColor(.secondary)
             }
         }
         .padding(.horizontal, 4)
@@ -89,9 +89,9 @@ struct TodayView: View {
     private func tierCard(_ round: TodayRound) -> some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack {
-                Text("Tier \(round.tier)").font(.caption.weight(.bold)).foregroundColor(.accentColor)
+                Text("LEVEL \(round.tier) OF 3").font(.caption.weight(.bold)).foregroundColor(.accentColor)
                 Spacer()
-                Text("2 machines · 4 experiments each").font(.caption).foregroundColor(.secondary)
+                Text("Two machines, four tries each").font(.caption).foregroundColor(.secondary)
             }
             Text(round.tier_text).font(.subheadline).fixedSize(horizontal: false, vertical: true)
         }
@@ -153,9 +153,9 @@ struct MachineCard: View {
                 if machine.play.star?.hit == true { Text("★").foregroundColor(.yellow) }
             }
         case "tests":
-            Text("Classify").font(.caption.weight(.semibold)).foregroundColor(.accentColor)
+            Text("Finish it").font(.caption.weight(.semibold)).foregroundColor(.accentColor)
         default:
-            Text(machine.play.queries.isEmpty ? "Play" : "\(machine.play.queries.count)/\(machine.max_experiments) used")
+            Text(machine.play.queries.isEmpty ? "Play" : "\(machine.max_experiments - machine.play.queries.count) tries left")
                 .font(.caption.weight(.semibold)).foregroundColor(.accentColor)
         }
     }

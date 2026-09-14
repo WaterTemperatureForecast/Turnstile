@@ -113,24 +113,62 @@ export function counterexample(a: Ast, b: Ast): Seq | null {
 }
 
 const POS = ["", "first", "second", "third"];
+const NUM = ["no", "one", "two", "three"];
 
-/** English rendering of a rule, matching playtest/oracle.py describe(). */
-export function describe(ast: Ast): string {
+/** "red tile"/"red tiles" for a colour, "triangle"/"triangles" for a shape. */
+function things(attr: Attr, value: string, plural: boolean): string {
+  const one = attr === "colour" ? `${value} tile` : value;
+  return plural ? one + "s" : one;
+}
+
+/**
+ * One property in plain English, negated if asked. Every rule the player can
+ * meet is built from these, so this is the only place the game's wording lives.
+ * Mirrored by RuleText.describe() in the app (Components.swift).
+ */
+function property(ast: Ast, not: boolean): string {
   switch (ast.op) {
-    case "pos":
-      return ast.attr === "colour" ? `the ${POS[ast.i]} tile is ${ast.value}` : `the ${POS[ast.i]} tile is a ${ast.value}`;
+    case "pos": {
+      const where = `the ${POS[ast.i]} tile is${not ? " not" : ""}`;
+      return ast.attr === "colour" ? `${where} ${ast.value}` : `${where} a ${ast.value}`;
+    }
     case "count": {
       const n = ast.n;
-      if (ast.attr === "colour") return `exactly ${n} tile${n !== 1 ? "s" : ""} ${n !== 1 ? "are" : "is"} ${ast.value}`;
-      return `there ${n !== 1 ? "are" : "is"} exactly ${n} ${ast.value}${n !== 1 ? "s" : ""}`;
+      if (!not) {
+        if (n === 0) return `there are no ${things(ast.attr, ast.value, true)}`;
+        if (n === 3) return ast.attr === "colour" ? `all three tiles are ${ast.value}` : `all three tiles are ${ast.value}s`;
+        return `there ${n === 1 ? "is" : "are"} exactly ${NUM[n]} ${things(ast.attr, ast.value, n !== 1)}`;
+      }
+      if (n === 0) return `there is at least one ${things(ast.attr, ast.value, false)}`;
+      if (n === 3) return `the three tiles are not all ${things(ast.attr, ast.value, true)}`;
+      return `there ${n === 1 ? "is" : "are"} not exactly ${NUM[n]} ${things(ast.attr, ast.value, n !== 1)}`;
     }
-    case "same": return `the ${POS[ast.i]} and ${POS[ast.j]} tiles have the same ${ast.attr}`;
-    case "allsame": return `all three tiles have the same ${ast.attr}`;
-    case "alldiff": return `all three ${ast.attr}s are different`;
-    case "not": return `NOT (${describe(ast.a)})`;
-    case "and": return `(${describe(ast.a)}) AND (${describe(ast.b)})`;
-    case "or": return `(${describe(ast.a)}) OR (${describe(ast.b)})`;
-    case "xor": return `(${describe(ast.a)}) XOR (${describe(ast.b)})`;
+    case "same": {
+      const pair = `the ${POS[ast.i]} and ${POS[ast.j]} tiles are`;
+      return not ? `${pair} different ${ast.attr}s` : `${pair} the same ${ast.attr}`;
+    }
+    case "allsame":
+      return not ? `the three tiles are not all the same ${ast.attr}` : `all three tiles are the same ${ast.attr}`;
+    case "alldiff":
+      return not ? `at least two tiles share a ${ast.attr}` : `all three ${ast.attr}s are different`;
+    default:
+      // Only atoms reach here; a nested rule is not part of the grammar.
+      return describe(ast);
+  }
+}
+
+/** Plain-English rendering of a whole rule. Shown to players in the reveal. */
+export function describe(ast: Ast): string {
+  switch (ast.op) {
+    case "not": return property(ast.a, true);
+    case "and": return `${property(ast.a, false)} and ${property(ast.b, false)}`;
+    case "or": {
+      // "or both" only helps when both halves can actually hold at once.
+      const overlap = ALL_INPUTS.some((s) => ev(ast.a, s) && ev(ast.b, s));
+      return `${property(ast.a, false)}, or ${property(ast.b, false)}${overlap ? ", or both" : ""}`;
+    }
+    case "xor": return `${property(ast.a, false)}, or ${property(ast.b, false)}, but not both`;
+    default: return property(ast, false);
   }
 }
 
@@ -144,16 +182,16 @@ export function tierForDate(date: string): number {
 export function examplesForTier(tier: number): number { return tier === 1 ? 4 : 6; }
 
 export const TIER_TEXT: Record<number, string> = {
-  1: "Today's rule is one property, or NOT one property.",
-  2: "Today's rule is one property, NOT one property, or two properties joined by AND or OR.",
-  3: "Today's rule is one property, NOT one property, or two properties joined by AND, OR, or XOR (exactly one of the two).",
+  1: "Today the rule checks one thing about the row, or the opposite of one thing.",
+  2: "Today the rule may check two things at once, joined by “and” or “or”.",
+  3: "Today the rule may join two things with “and”, with “or”, or with “one but not both”.",
 };
 
 export const VOCABULARY = [
-  "Position: the tile in position 1, 2 or 3 has a given shape or colour.",
-  "Count: exactly N tiles (0 to 3) have a given shape or colour.",
-  "Match: two given positions share their shape, or share their colour.",
-  "All same / all different: the three shapes (or colours) are all the same, or all different.",
+  "Where a tile sits — like “the middle tile is blue”.",
+  "How many — like “exactly two tiles are red”, or “there are no triangles”.",
+  "A pair matching — like “the first and last tiles are the same colour”.",
+  "All three — like “all three shapes are the same”, or “all three colours are different”.",
 ];
 
 export interface MachineJson {

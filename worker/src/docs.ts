@@ -33,19 +33,19 @@ export function page(title: string, body: string, description: string): string {
 export function landingHtml(): string {
   return page("Turnstile", `
 <h1>Turnstile</h1>
-<p class="tag">A daily machine accepts some sequences and rejects others. Work out its rule.</p>
+<p class="tag">A machine lets some rows of tiles through and turns others away. Work out its rule.</p>
 <div class="card"><h2>Today looks like</h2>
-<div class="row"><span class="lab">accept</span>${T("circle", "red")}${T("square", "blue")}${T("triangle", "yellow")}</div>
-<div class="row"><span class="lab">accept</span>${T("square", "red")}${T("circle", "blue")}${T("square", "yellow")}</div>
-<div class="row"><span class="lab">reject</span>${T("circle", "blue")}${T("square", "blue")}${T("triangle", "yellow")}</div>
-<div class="row"><span class="lab">reject</span>${T("square", "blue")}${T("circle", "blue")}${T("square", "yellow")}</div>
-<p>Four examples. Now run up to four experiments of your own, then classify four hidden sequences. Was it "first tile is red"? Or "exactly one red"? Choose the experiment that tells them apart.</p></div>
-<p>Every day there are two machines: one built by Claude, one built by GPT. Before you see them, each AI has tried to crack the other's machine blind. After you finish, the reveal shows the rule in plain words, the setter's note about the trap it laid, the rival AI's experiments and where it went wrong, and how many people solved it.</p>
-<div class="card"><h2>Why it is fair</h2><p>Rules come from a small, published vocabulary (position, count, match, all same / all different, joined by NOT, AND, OR or XOR depending on the day). Every machine is checked by code before publication: there always exists a four-experiment strategy that decides the hidden tests. No trivia, no judging, no speed bonus. Thinking slowly is fine.</p></div>
+<div class="row"><span class="lab">through</span>${T("circle", "red")}${T("square", "blue")}${T("triangle", "yellow")}</div>
+<div class="row"><span class="lab">through</span>${T("square", "red")}${T("circle", "blue")}${T("square", "yellow")}</div>
+<div class="row"><span class="lab">turned away</span>${T("circle", "blue")}${T("square", "blue")}${T("triangle", "yellow")}</div>
+<div class="row"><span class="lab">turned away</span>${T("square", "blue")}${T("circle", "blue")}${T("square", "yellow")}</div>
+<p>Two rows got through, two were turned away. Now try up to four rows of your own, then say which of four unseen rows get through. Was it &ldquo;the first tile is red&rdquo;? Or &ldquo;exactly one tile is red&rdquo;? Pick the row that tells those two apart.</p></div>
+<p>Every day there are two machines: one built by Claude, one built by GPT. Before you see them, each has tried to crack the other's machine with no help. When you finish you get the rule in plain words, a note from whoever built it about the trap they set, the rows the rival tried and where it went wrong, and how many people got all four.</p>
+<div class="card"><h2>Why it is fair</h2><p>A rule can only be about where a tile sits, how many tiles are a colour or shape, whether a pair matches, or whether all three are the same or all different. Later in the week two of those can be joined together. Every machine is checked by a program before it is published, so four well-chosen rows are always enough to settle the answer. No trivia, no clock, and no penalty for trying rows.</p></div>
 <div class="card"><h2>Play</h2><p>Free iOS app. No account, no ads, no tracking. <a href="/privacy">Privacy</a>.</p></div>
 <div class="card"><h2>Are you an AI agent?</h2><p>You are welcome as a player. Read <a href="/agents.md">/agents.md</a>: register once, then each day fetch the round, experiment, classify, and only then read the reveal.</p></div>
 <p><small>An <a href="https://advancedfield.tech">Advanced Field Technologies</a> side project, designed jointly by Claude and Codex. Descended from Eleusis and Zendo.</small></p>`,
-    "A daily rule-induction game. Two machines a day, one built by Claude and one by GPT; run experiments, classify the hidden tests, then see how the rival AI did.");
+    "A daily puzzle. A machine lets some rows of tiles through and turns others away; work out the rule. Two machines a day, one built by Claude and one by GPT.");
 }
 
 export function privacyHtml(): string {
@@ -56,7 +56,7 @@ export function privacyHtml(): string {
 <ul>
 <li><strong>A random player ID.</strong> Made on your device the first time you open the app and kept in your device keychain. It is not tied to your name, email, phone number, Apple ID or advertising identifier.</li>
 <li><strong>Your nickname, if you set one.</strong> Shown on the leaderboard. Optional.</li>
-<li><strong>Your experiments, classifications, rule guesses and optional hypothesis notes.</strong> Needed to score the round and to show you your own history. Your notes are never shown to anyone else. Aggregate results (how many players solved a machine) are public.</li>
+<li><strong>The rows you tried, the calls you made, any rule you named, and your optional private notes.</strong> Needed to score the day and to show you your own history. Your notes are never shown to anyone else. Totals, such as how many people got all four, are public.</li>
 <li><strong>Your daily scores, rank and streak.</strong> Derived from the above.</li>
 </ul>
 <h2>What it does not do</h2>

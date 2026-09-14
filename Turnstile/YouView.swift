@@ -50,7 +50,7 @@ struct YouView: View {
             Divider().frame(height: 36)
             stat("\(me.streak)", "streak")
             Divider().frame(height: 36)
-            stat(me.lifetime_score.map { String(format: "%.1f", $0) } ?? "–", "mean /8")
+            stat(me.lifetime_score.map { String(format: "%.1f", $0) } ?? "–", "average /8")
             Divider().frame(height: 36)
             stat("\(me.stars)", "stars")
         }

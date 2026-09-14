@@ -231,12 +231,12 @@ class UI:
 # `python engine/rules.py` if you edit them.
 
 EXAMPLES = [([0, 3, 6], True), ([1, 4, 7], True), ([0, 4, 8], False), ([2, 4, 3], False)]
-TRIED = [([0, 4, 6], True, "Not all one colour, so “all three the same” is dead."),
+TRIED = [([0, 4, 6], True, "Not all one colour, so “all three the same” is out."),
          ([4, 0, 6], False, "Last two match and it still rejects: it is the ends.")]
 TESTS = [([0, 1, 6], 1), ([4, 4, 8], 0), ([2, 3, 5], 1), ([7, 2, 3], None)]
-RULE_TEXT = "The first and third tiles have the same colour."
-SETTER_NOTE = ("Claude Opus 5: “Every accepted example is all one colour, so the "
-               "natural guess is ‘all three the same’.”")
+RULE_TEXT = "The first and third tiles are the same colour."
+SETTER_NOTE = ("Claude Opus 5: “Every accepted row is all one colour, so the natural "
+               "guess is ‘all three the same’.”")
 GPT_TRIED = [([3, 1, 0], True, "Ends both red but not all one colour."),
              ([2, 8, 0], False, "First two match, ends do not: so the ends decide.")]
 GPT_MARKS = (True, True, False, True)
@@ -250,18 +250,18 @@ def screen_today(ui):
     ui.text(ui.m + 4, y, "Sep 14", "semibold", 17)
     ui.text(ui.m + 4, y + 22, "Closes in 9h 12m", "regular", 12, C["secondary"])
     ui.text(ui.W - ui.m - 4, y, "184", "semibold", 17, anchor="ra")
-    ui.text(ui.W - ui.m - 4, y + 22, "finished so far", "regular", 12, C["secondary"], anchor="ra")
+    ui.text(ui.W - ui.m - 4, y + 22, "played so far", "regular", 12, C["secondary"], anchor="ra")
     y += 48
 
     x, cy, w = ui.card(y, 84)
-    ui.text(x + 16, cy + 14, "TIER 1", "semibold", 12, C["accent"])
-    ui.text(x + w - 16, cy + 14, "2 machines · 4 experiments each", "regular", 12, C["secondary"], anchor="ra")
-    ui.text(x + 16, cy + 38, "Today's rule is one property, or NOT one property.", "regular", 15, max_w=w - 32)
+    ui.text(x + 16, cy + 14, "LEVEL 1 OF 3", "semibold", 12, C["accent"])
+    ui.text(x + w - 16, cy + 14, "Two machines, four tries each", "regular", 12, C["secondary"], anchor="ra")
+    ui.text(x + 16, cy + 38, "Today the rule checks one thing about the row, or the opposite of one thing.", "regular", 15, max_w=w - 32)
     y += 94
 
     machines = [
-        ("Claude Opus 5's machine", "Play", "4 examples · not started", EXAMPLES[:3]),
-        ("GPT-6's machine", "2/4 used", "2 experiments so far", [([6, 2, 6], True), ([0, 0, 7], False), ([5, 5, 2], False)]),
+        ("Claude Opus 5's machine", "Play", "4 rows judged · not started", EXAMPLES[:3]),
+        ("GPT-6's machine", "2 tries left", "you have tried 2 rows", [([6, 2, 6], True), ([0, 0, 7], False), ([5, 5, 2], False)]),
     ]
     for name, status, sub, examples in machines:
         h = 116
@@ -280,10 +280,10 @@ def screen_today(ui):
         y += h + 12
 
     x, cy, w = ui.card(y, 132)
-    ui.section(x + 16, cy + 14, "How a machine works")
-    for i, step in enumerate(("Read the examples it accepted and rejected.",
-                              "Run up to four experiments of your own.",
-                              "Classify four sequences you have not seen.")):
+    ui.section(x + 16, cy + 14, "How it works")
+    for i, step in enumerate(("See which rows it accepted and rejected.",
+                              "Try up to four rows of your own.",
+                              "Call four rows you have never seen.")):
         ry = cy + 40 + i * 28
         ui.circle(x + 26, ry + 8, 9, mix(C["accent"], C["card"], 0.85))
         ui.text(x + 26, ry + 2, str(i + 1), "semibold", 11, C["accent"], anchor="ma")
@@ -301,7 +301,7 @@ def screen_experiment(ui):
     y = ui.nav_inline("Claude Opus 5's machine")
 
     cw = ui.W - 2 * ui.m
-    intro = "The machine accepts some sequences and rejects others."
+    intro = "This machine follows a secret rule. It accepted these rows and rejected these."
     intro_h = ui.text_h(intro, "regular", 14, cw - 32)
     h = 14 + intro_h + 16 + len(EXAMPLES) * 52
     x, cy, w = ui.card(y, h)
@@ -314,7 +314,7 @@ def screen_experiment(ui):
 
     h = 36 + len(TRIED) * 68
     x, cy, w = ui.card(y, h)
-    ui.section(x + 16, cy + 12, "Your experiments")
+    ui.section(x + 16, cy + 12, "Rows you tried")
     ry = cy + 38
     for i, (seq, acc, note) in enumerate(TRIED):
         ui.circle(x + 26, ry + 11, 9, mix(C["accent"], C["card"], 0.85))
@@ -325,11 +325,11 @@ def screen_experiment(ui):
         ry += 68
     y += h + 12
 
-    hint = "Build a sequence and the machine tells you accept or reject."
+    hint = "Build a row of three tiles and the machine will accept it or reject it."
     hint_h = ui.text_h(hint, "regular", 13, ui.W - 2 * ui.m - 32)
     h = 14 + 22 + 6 + hint_h + 18 + 56 + 26 + 34 + 18 + 42 + 14 + 44 + 16
     x, cy, w = ui.card(y, h)
-    ui.text(x + 16, cy + 14, "Experiment 3 of 4", "semibold", 17)
+    ui.text(x + 16, cy + 14, "Your turn (3 of 4)", "semibold", 17)
     sy = ui.text(x + 16, cy + 42, hint, "regular", 13, C["secondary"], max_w=w - 32) + 18
     ui.tile(x + 16, sy, 56, 2)
     ui.tile(x + 82, sy, 56, 5)
@@ -339,7 +339,7 @@ def screen_experiment(ui):
         ui.tile(x + 16 + t * ((w - 32 - 34) / 8), py, 34, t)
     ny = py + 34 + 18
     ui.rrect(x + 16, ny, w - 32, 42, 10, C["fill"])
-    ui.text(x + 30, ny + 12, "Yellow at the end should accept.", "regular", 14, C["secondary"])
+    ui.text(x + 30, ny + 12, "If the ends must match, yellow accepts.", "regular", 14, C["secondary"])
     by = ny + 42 + 14
     ui.rrect(x + 16, by, w - 32, 44, 11, C["accent"])
     ui.text(x + w / 2, by + 12, "Ask the machine", "semibold", 17, C["white"], anchor="ma")
@@ -354,7 +354,7 @@ def screen_tests(ui):
     # Examples and experiments stay on screen above the tests, as in the app.
     h = 34 + len(EXAMPLES) * 38
     x, cy, w = ui.card(y, h)
-    ui.section(x + 16, cy + 12, "The examples")
+    ui.section(x + 16, cy + 12, "What the machine did")
     ry = cy + 36
     for seq, acc in EXAMPLES:
         ui.seq(x + 16, ry, seq, size=28, gap=4)
@@ -363,7 +363,7 @@ def screen_tests(ui):
     y += h + 12
 
     x, cy, w = ui.card(y, 34 + 38)
-    ui.section(x + 16, cy + 12, "Your experiments")
+    ui.section(x + 16, cy + 12, "Rows you tried")
     ex = x + 16
     for seq, acc, _ in TRIED:
         end = ui.seq(ex, cy + 36, seq, size=28, gap=4)
@@ -371,11 +371,11 @@ def screen_tests(ui):
         ex = end + 42
     y += 34 + 38 + 12
 
-    ask = "Which of these does the machine accept? Decide all four, then lock in."
+    ask = "Which of these rows does the machine accept? Exactly two of them."
     ask_h = ui.text_h(ask, "regular", 13, cw - 32)
     h = 14 + 26 + 8 + ask_h + 16 + len(TESTS) * 58 + 66
     x, cy, w = ui.card(y, h)
-    ui.text(x + 16, cy + 14, "The tests", "semibold", 20)
+    ui.text(x + 16, cy + 14, "The final four", "semibold", 20)
     ry = ui.text(x + 16, cy + 48, ask, "regular", 13, C["secondary"], max_w=w - 32) + 16
     for i, (seq, pick) in enumerate(TESTS):
         ui.text(x + 20, ry + 12, str(i + 1), "semibold", 12, C["secondary"])
@@ -416,8 +416,8 @@ def screen_reveal(ui):
     y += h + 10
 
     x, cy, w = ui.card(y, 96)
-    ui.section(x + 16, cy + 12, "Everyone")
-    stats = [("184", "finished"), ("52%", "scored 4/4"), ("2.9", "mean score"), ("31%", "named it")]
+    ui.section(x + 16, cy + 12, "Everyone else")
+    stats = [("184", "played"), ("52%", "got all four"), ("2.9", "average"), ("31%", "named the rule")]
     for i, (v, label) in enumerate(stats):
         cx = x + w * (i + 0.5) / 4
         ui.text(cx, cy + 38, v, "semibold", 19, anchor="ma")
@@ -426,7 +426,7 @@ def screen_reveal(ui):
             ui.line(x + w * i / 4, cy + 36, x + w * i / 4, cy + 74, C["sep"], 0.8)
     y += 106
 
-    blurb = "How it investigated, blind, before you saw this machine:"
+    blurb = "The rows it tried, before you saw this machine:"
     h = 14 + 22 + 6 + ui.text_h(blurb, "regular", 12, cw - 32) + 12 + len(GPT_TRIED) * 66 + 30 + 24
     x, cy, w = ui.card(y, h)
     gx = ui.cpu_glyph(x + 16, cy + 18, C["text"], 16)
@@ -440,10 +440,12 @@ def screen_reveal(ui):
         ui.verdict(x + w - 96, ry + 1, acc, size=15)
         ui.text(x + 42, ry + 28, note, "regular", 12, C["secondary"], max_w=w - 70)
         ry += 66
-    ui.text(x + 16, ry + 4, "Tests:", "regular", 12, C["secondary"])
+    label = "Final four:"
+    ui.text(x + 16, ry + 4, label, "regular", 12, C["secondary"])
+    marks_x = x + 16 + ui.width(label, "regular", 12) + 8
     for k, ok in enumerate(GPT_MARKS):
-        ui.verdict(x + 58 + k * 24, ry + 1, ok, label=False, size=15)
-    ui.text(x + 16, ry + 30, "Guessed: at least two tiles share a colour", "regular", 12, C["secondary"])
+        ui.verdict(marks_x + k * 24, ry + 1, ok, label=False, size=15)
+    ui.text(x + 16, ry + 30, "It guessed: at least two tiles share a colour", "regular", 12, C["secondary"])
 
 
 def screen_board(ui):
@@ -456,34 +458,34 @@ def screen_board(ui):
         ui.text(ui.m + seg_w * (i + 0.5) / 3, y + 8, label, "medium" if i == 2 else "regular", 14,
                 C["text"] if i == 2 else C["secondary"], anchor="ma")
     y += 48
-    ui.text(ui.m + 4, y, "Calibration points: 2 when 40\u201370% of people scored 4/4, 1 when close, +1 when the rival AI did not.",
+    ui.text(ui.m + 4, y, "Claude and GPT build the machines, so they are scored on how well they pitch them: best when 40 to 70 percent of people get all four.",
             "regular", 12, C["secondary"], max_w=ui.W - 2 * ui.m - 8)
     y += 46
 
     # Points follow the stated rule: 2 inside 40-70%, 1 inside 30-80%, else 0;
     # +1 when the rival AI scored under 4 and at least 40% of people solved it.
     setters = [
-        ("Claude Opus 5", 17, 9, [("Sep 13", 1, "52% solved · 184 played", "rival 3/4", 3),
-                                  ("Sep 12", 2, "61% solved · 171 played", "rival 4/4", 2),
-                                  ("Sep 11", 2, "38% solved · 166 played", "rival 2/4", 1),
-                                  ("Sep 10", 2, "45% solved · 159 played", "rival 4/4", 2),
-                                  ("Sep 09", 1, "71% solved · 152 played", "rival 4/4", 1)]),
-        ("GPT-6", 14, 9, [("Sep 13", 1, "44% solved · 181 played", "rival 4/4", 2),
-                          ("Sep 12", 2, "84% solved · 169 played", "rival 4/4", 0),
-                          ("Sep 11", 2, "49% solved · 164 played", "rival 1/4", 3),
-                          ("Sep 10", 2, "56% solved · 158 played", "rival 4/4", 2),
-                          ("Sep 09", 1, "35% solved · 151 played", "rival 2/4", 1)]),
+        ("Claude Opus 5", 17, 9, [("Sep 13", 1, "52% got all four", "other AI 3/4", 3),
+                                  ("Sep 12", 2, "61% got all four", "other AI 4/4", 2),
+                                  ("Sep 11", 2, "38% got all four", "other AI 2/4", 1),
+                                  ("Sep 10", 2, "45% got all four", "other AI 4/4", 2),
+                                  ("Sep 09", 1, "71% got all four", "other AI 4/4", 1)]),
+        ("GPT-6", 14, 9, [("Sep 13", 1, "44% got all four", "other AI 4/4", 2),
+                          ("Sep 12", 2, "84% got all four", "other AI 4/4", 0),
+                          ("Sep 11", 2, "49% got all four", "other AI 1/4", 3),
+                          ("Sep 10", 2, "56% got all four", "other AI 4/4", 2),
+                          ("Sep 09", 1, "35% got all four", "other AI 2/4", 1)]),
     ]
     for name, pts, machines, rows in setters:
         h = 52 + len(rows) * 26
         x, cy, w = ui.card(y, h)
         gx = ui.cpu_glyph(x + 16, cy + 17, C["text"], 16)
         ui.text(gx, cy + 14, name, "semibold", 17)
-        ui.text(x + w - 16, cy + 15, f"{pts} pts · {machines} machines", "medium", 14, anchor="ra")
+        ui.text(x + w - 16, cy + 15, f"{pts} points · {machines} machines", "medium", 14, anchor="ra")
         ry = cy + 46
         for date, tier, result, rival, gain in rows:
             ui.text(x + 16, ry, date, "regular", 12, C["secondary"])
-            ui.text(x + 68, ry, f"T{tier}", "semibold", 11, C["accent"])
+            ui.text(x + 68, ry, f"L{tier}", "semibold", 11, C["accent"])
             ui.text(x + 94, ry, result, "regular", 12)
             ui.text(x + w - 60, ry, rival, "regular", 12, C["secondary"], anchor="ra")
             ui.text(x + w - 16, ry, f"+{gain}", "semibold", 12, anchor="ra")
@@ -494,10 +496,10 @@ def screen_board(ui):
 
 SCREENS = [
     ("01_today", screen_today, "Two machines a day.\nOne set by Claude, one by GPT."),
-    ("02_experiment", screen_experiment, "Four experiments.\nChoose the one that settles it."),
-    ("03_tests", screen_tests, "Then classify four\nsequences you have never seen."),
-    ("04_reveal", screen_reveal, "See the rule, the trap,\nand where the rival AI went wrong."),
-    ("05_board", screen_board, "The AIs are scored too:\non how well they set."),
+    ("02_experiment", screen_experiment, "Four tries.\nPick the row that settles it."),
+    ("03_tests", screen_tests, "Then call four rows\nyou have never seen."),
+    ("04_reveal", screen_reveal, "See the rule, the trap,\nand where the other AI went wrong."),
+    ("05_board", screen_board, "The AIs are scored too,\non how well they set."),
 ]
 
 

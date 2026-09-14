@@ -39,7 +39,7 @@ struct ResultsSummary: View {
             HStack {
                 Text(UTCDay.label(results.date)).font(.headline)
                 Spacer()
-                Text(results.final ? "Final · \(results.player_count) finished" : "\(results.player_count) finished so far")
+                Text(results.final ? "Closed · \(results.player_count) played" : "\(results.player_count) played so far")
                     .font(.caption).foregroundColor(.secondary)
             }
             if let you = results.you {
@@ -68,11 +68,12 @@ struct ResultsSummary: View {
                 if let rule = m.rule_text {
                     Text(rule.capitalizedFirst).font(.subheadline).fixedSize(horizontal: false, vertical: true)
                 } else {
-                    Text("Rule revealed when the round closes.").font(.subheadline).foregroundColor(.secondary)
+                    Text("The rule is shown once the day ends.").font(.subheadline).foregroundColor(.secondary)
                 }
                 if m.stats.finished > 0 {
-                    Text("\(m.stats.finished) finished · \(Int((m.stats.solved_pct ?? 0).rounded()))% scored 4/4 · \(Int((m.stats.star_pct ?? 0).rounded()))% named it")
+                    Text("\(m.stats.finished) played · \(Int((m.stats.solved_pct ?? 0).rounded()))% got all four · \(Int((m.stats.star_pct ?? 0).rounded()))% named the rule")
                         .font(.caption).foregroundColor(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
             }
             .card()
