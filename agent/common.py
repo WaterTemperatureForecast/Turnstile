@@ -44,8 +44,22 @@ BRAINS = {
 TILE_NAMES = [f"{c} {s}" for s in rules.SHAPES for c in rules.COLOURS]  # index = tile id
 
 
+# Notes are free text written by a model and routinely contain characters the
+# Windows console codepage cannot encode (>=, arrows, curly quotes). Without
+# this, printing one raises UnicodeEncodeError and kills the run *after* the
+# move has already been sent to the server.
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):   # not a real console, or too old
+        pass
+
+
 def log(msg):
-    print(msg, flush=True)
+    try:
+        print(msg, flush=True)
+    except UnicodeEncodeError:
+        print(str(msg).encode("ascii", "replace").decode("ascii"), flush=True)
 
 
 def call(method, path, body=None, token=None):
