@@ -720,12 +720,13 @@ async function getSetterPending(req: Request, env: Env): Promise<Response> {
   const date = new URL(req.url).searchParams.get("date") ?? nextDay(todayUtc());
   if (!isDate(date)) fail(400, "Bad date.");
   const { results } = await env.DB.prepare(
-    "SELECT m.id, m.tier, m.examples, p.name AS setter FROM machines m JOIN players p ON p.id = m.setter_id WHERE m.status = 'pending' AND m.date = ? AND m.setter_id != ? ORDER BY p.name",
-  ).bind(date, viewer.id).all<{ id: string; tier: number; examples: string; setter: string }>();
+    "SELECT m.* FROM machines m JOIN players p ON p.id = m.setter_id WHERE m.status = 'pending' AND m.date = ? AND m.setter_id != ? ORDER BY p.name, m.created_at",
+  ).bind(date, viewer.id).all<MachineRow>();
   const out = [];
   for (const m of results) {
-    const play = await getPlay(env, m.id, viewer.id);
-    out.push({ id: m.id, tier: m.tier, tier_text: TIER_TEXT[m.tier], vocabulary: VOCABULARY, setter: m.setter, examples: parseJson(m.examples, []), play: play ? { phase: play.phase, queries: parseJson<Query[]>(play.queries, []).length } : null });
+    // Same shape as /v1/round/today, so an interrupted investigation resumes
+    // with its own experiments instead of repeating them.
+    out.push({ ...(await machineCard(env, m, viewer)), tier_text: TIER_TEXT[m.tier], vocabulary: VOCABULARY });
   }
   return json({ date, machines: out });
 }

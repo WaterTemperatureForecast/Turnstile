@@ -75,7 +75,12 @@ def play_machine(brain, token, m):
     if phase == "answered":
         log(f"{brain}: {mid} already answered")
         return
-    queries = play.get("queries", []) if isinstance(play.get("queries"), list) else []
+    raw = play.get("queries")
+    if raw and not isinstance(raw, list):
+        # The server must hand back the experiments themselves; a count would
+        # make a resumed run repeat work and burn its budget.
+        sys.exit(f"{brain}: server returned queries as {type(raw).__name__}, not a list; refusing to re-run experiments")
+    queries = raw if isinstance(raw, list) else []
     while phase == "experiments" and len(queries) < MAX_EXPERIMENTS:
         try:
             obj = first_json_object(ask(brain, experiment_prompt(tier, examples, queries)),
