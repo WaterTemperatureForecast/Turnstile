@@ -74,6 +74,14 @@ def read_token(brain):
 
 
 CALL_TIMEOUT = int(os.environ.get("TURNSTILE_CLI_TIMEOUT", "300"))   # a real call is ~70 s; a hung one must not eat the window
+# Both CLIs report an exhausted subscription as ordinary prose on stdout.
+LIMIT_MARKERS = ("session limit", "usage limit", "hit your limit", "rate limit",
+                 "upgrade to pro", "purchase more credits", "quota")
+
+
+def quota_exhausted(text):
+    low = text.lower()
+    return any(marker in low for marker in LIMIT_MARKERS)
 
 
 def ask(brain, prompt, attempts=2):
@@ -101,6 +109,11 @@ def ask(brain, prompt, attempts=2):
                     input=prompt, text=True, capture_output=True, timeout=CALL_TIMEOUT, encoding="utf-8", shell=(os.name == "nt"),
                 )
                 text = proc.stdout or ""
+            if quota_exhausted(text):
+                # Retrying cannot help, and near the limit the CLI tends to
+                # stall rather than answer, so stop the whole run now.
+                log(f"{brain}: subscription limit reached -> {' '.join(text.split())[:120]}")
+                return ""
             if text.strip():
                 return text
             log(f"{brain}: empty reply on attempt {attempt + 1}")
