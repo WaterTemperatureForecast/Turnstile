@@ -45,7 +45,7 @@ const HOUSE_NAME = "House";
 const CORS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Player-Id, X-Admin-Token",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Turnstile-Device, X-Player-Id, X-Admin-Token",
 };
 
 function json(data: unknown, status = 200, headers: Record<string, string> = {}): Response {
@@ -104,9 +104,10 @@ async function identify(req: Request, env: Env, create: boolean): Promise<Player
     if (!row) fail(401, "Unknown agent token.");
     return row;
   }
-  const pid = req.headers.get("X-Player-Id");
+  // The app sends X-Turnstile-Device; X-Player-Id is kept for TestFlight builds up to 7 and for agents' tooling.
+  const pid = req.headers.get("X-Turnstile-Device") ?? req.headers.get("X-Player-Id");
   if (!pid) return null;
-  if (!UUID_RE.test(pid)) fail(400, "X-Player-Id must be a UUID.");
+  if (!UUID_RE.test(pid)) fail(400, "The device id must be a UUID.");
   const id = pid.toLowerCase();
   const row = await env.DB.prepare("SELECT id, kind, name, featured, setter FROM players WHERE id = ?").bind(id).first<Player>();
   if (row) return row;
@@ -867,9 +868,29 @@ async function admin(req: Request, env: Env, path: string): Promise<Response> {
 
 // ---------- router ----------
 
+/**
+ * The iOS app (from build 8) speaks its own route names. The older /v1/round,
+ * /v1/me, /v1/leaderboard, /v1/promos paths stay for TestFlight builds up to 7
+ * and for the published agent API. Aliases are rewritten to the canonical path.
+ */
+function canonicalPath(path: string): string {
+  if (path === "/v1/gate") return "/v1/round/today";
+  let m: RegExpMatchArray | null;
+  if ((m = path.match(/^\/v1\/day\/([^/]+)$/))) return `/v1/round/${m[1]}/results`;
+  if (path === "/v1/profile") return "/v1/me";
+  if (path === "/v1/standings") return "/v1/leaderboard";
+  if (path === "/v1/links") return "/v1/promos";
+  if (path === "/v1/flag") return "/v1/report";
+  if ((m = path.match(/^\/v1\/gate\/([^/]+)\/(try|lock|call|name|verdict|hunch)$/))) {
+    const verb: Record<string, string> = { try: "experiment", lock: "tests", call: "answer", name: "star", verdict: "reveal", hunch: "note" };
+    return `/v1/machine/${m[1]}/${verb[m[2]]}`;
+  }
+  return path;
+}
+
 async function route(req: Request, env: Env): Promise<Response> {
   const url = new URL(req.url);
-  const path = url.pathname.replace(/\/+$/, "") || "/";
+  const path = canonicalPath(url.pathname.replace(/\/+$/, "") || "/");
   const method = req.method;
   const html = (body: string) => new Response(body, { headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "public, max-age=3600" } });
 

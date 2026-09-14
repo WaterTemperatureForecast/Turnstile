@@ -5,6 +5,7 @@ new view is never silently left out of the Sources phase.
     python tools/generate_pbxproj.py
 """
 import os
+import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -16,9 +17,10 @@ BUNDLE = "tech.advancedfield.Turnstile"
 DISPLAY_NAME = "Turnstile AI"
 MARKETING_VERSION = "1.0"
 SOURCES = [
-    "TurnstileApp.swift", "Models.swift", "API.swift", "Keychain.swift", "AppModel.swift", "Components.swift",
-    "TodayView.swift", "MachineView.swift", "RevealView.swift", "RulePickerView.swift",
-    "YesterdayView.swift", "LeaderboardView.swift", "YouView.swift", "HelpView.swift",
+    "TurnstileApp.swift", "Wire.swift", "GateClient.swift", "DeviceIdentity.swift", "GameStore.swift",
+    "Theme.swift", "TileKit.swift", "RuleWording.swift",
+    "GateHomeView.swift", "MachineScreen.swift", "VerdictView.swift", "RuleBuilderView.swift",
+    "MenuSheet.swift", "HistoryView.swift", "StandingsView.swift", "ProfileView.swift", "GuideView.swift",
 ]
 
 on_disk = sorted(f for f in os.listdir(os.path.join(ROOT, APP)) if f.endswith(".swift"))
@@ -27,8 +29,30 @@ extra = sorted(set(SOURCES) - set(on_disk))
 if missing or extra:
     sys.exit(f"SOURCES out of date: missing {missing}, not on disk {extra}")
 
+import hashlib
+
+
 def oid(prefix, n):
-    return f"{prefix}{n:022X}"
+    """24 hex digits derived from the app name and slot, so this project shares
+    no object identifiers with any other app generated from a template."""
+    return hashlib.sha1(f"TurnstileAI/{prefix}/{n}".encode()).hexdigest()[:24].upper()
+
+
+K01 = oid("K", 1)
+K02 = oid("K", 2)
+K03 = oid("K", 3)
+K04 = oid("K", 4)
+K05 = oid("K", 5)
+K06 = oid("K", 6)
+K07 = oid("K", 7)
+K08 = oid("K", 8)
+K09 = oid("K", 9)
+K10 = oid("K", 10)
+K11 = oid("K", 11)
+K12 = oid("K", 12)
+K13 = oid("K", 13)
+K14 = oid("K", 14)
+K15 = oid("K", 15)
 
 file_refs, build_files, group_children, source_lines = [], [], [], []
 for n, name in enumerate(SOURCES, start=1):
@@ -94,13 +118,13 @@ out = f"""// !$*UTF8*$!
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-\t\t100000000000000000000006 /* {APP}.app */ = {{isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = {APP}.app; sourceTree = BUILT_PRODUCTS_DIR; }};
+\t\t{K06} /* {APP}.app */ = {{isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = {APP}.app; sourceTree = BUILT_PRODUCTS_DIR; }};
 {NL.join(file_refs)}
 \t\t{assets_ref} /* Assets.xcassets */ = {{isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; }};
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-\t\t100000000000000000000008 /* Frameworks */ = {{
+\t\t{K08} /* Frameworks */ = {{
 \t\t\tisa = PBXFrameworksBuildPhase;
 \t\t\tbuildActionMask = 2147483647;
 \t\t\tfiles = (
@@ -110,23 +134,23 @@ out = f"""// !$*UTF8*$!
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-\t\t100000000000000000000002 = {{
+\t\t{K02} = {{
 \t\t\tisa = PBXGroup;
 \t\t\tchildren = (
-\t\t\t\t100000000000000000000004 /* {APP} */,
-\t\t\t\t100000000000000000000003 /* Products */,
+\t\t\t\t{K04} /* {APP} */,
+\t\t\t\t{K03} /* Products */,
 \t\t\t);
 \t\t\tsourceTree = "<group>";
 \t\t}};
-\t\t100000000000000000000003 /* Products */ = {{
+\t\t{K03} /* Products */ = {{
 \t\t\tisa = PBXGroup;
 \t\t\tchildren = (
-\t\t\t\t100000000000000000000006 /* {APP}.app */,
+\t\t\t\t{K06} /* {APP}.app */,
 \t\t\t);
 \t\t\tname = Products;
 \t\t\tsourceTree = "<group>";
 \t\t}};
-\t\t100000000000000000000004 /* {APP} */ = {{
+\t\t{K04} /* {APP} */ = {{
 \t\t\tisa = PBXGroup;
 \t\t\tchildren = (
 {NL.join(group_children)}
@@ -138,13 +162,13 @@ out = f"""// !$*UTF8*$!
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-\t\t100000000000000000000005 /* {APP} */ = {{
+\t\t{K05} /* {APP} */ = {{
 \t\t\tisa = PBXNativeTarget;
-\t\t\tbuildConfigurationList = 100000000000000000000011 /* Build configuration list for PBXNativeTarget "{APP}" */;
+\t\t\tbuildConfigurationList = {K11} /* Build configuration list for PBXNativeTarget "{APP}" */;
 \t\t\tbuildPhases = (
-\t\t\t\t100000000000000000000007 /* Sources */,
-\t\t\t\t100000000000000000000008 /* Frameworks */,
-\t\t\t\t100000000000000000000009 /* Resources */,
+\t\t\t\t{K07} /* Sources */,
+\t\t\t\t{K08} /* Frameworks */,
+\t\t\t\t{K09} /* Resources */,
 \t\t\t);
 \t\t\tbuildRules = (
 \t\t\t);
@@ -152,24 +176,24 @@ out = f"""// !$*UTF8*$!
 \t\t\t);
 \t\t\tname = {APP};
 \t\t\tproductName = {APP};
-\t\t\tproductReference = 100000000000000000000006 /* {APP}.app */;
+\t\t\tproductReference = {K06} /* {APP}.app */;
 \t\t\tproductType = "com.apple.product-type.application";
 \t\t}};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-\t\t100000000000000000000001 /* Project object */ = {{
+\t\t{K01} /* Project object */ = {{
 \t\t\tisa = PBXProject;
 \t\t\tattributes = {{
 \t\t\t\tBuildIndependentTargetsInParallel = 1;
 \t\t\t\tLastUpgradeCheck = 1500;
 \t\t\t\tTargetAttributes = {{
-\t\t\t\t\t100000000000000000000005 = {{
+\t\t\t\t\t{K05} = {{
 \t\t\t\t\t\tCreatedOnToolsVersion = 15.0;
 \t\t\t\t\t}};
 \t\t\t\t}};
 \t\t\t}};
-\t\t\tbuildConfigurationList = 100000000000000000000010 /* Build configuration list for PBXProject "{APP}" */;
+\t\t\tbuildConfigurationList = {K10} /* Build configuration list for PBXProject "{APP}" */;
 \t\t\tcompatibilityVersion = "Xcode 14.0";
 \t\t\tdevelopmentRegion = en;
 \t\t\thasScannedForEncodings = 0;
@@ -177,18 +201,18 @@ out = f"""// !$*UTF8*$!
 \t\t\t\ten,
 \t\t\t\tBase,
 \t\t\t);
-\t\t\tmainGroup = 100000000000000000000002;
-\t\t\tproductRefGroup = 100000000000000000000003 /* Products */;
+\t\t\tmainGroup = {K02};
+\t\t\tproductRefGroup = {K03} /* Products */;
 \t\t\tprojectDirPath = "";
 \t\t\tprojectRoot = "";
 \t\t\ttargets = (
-\t\t\t\t100000000000000000000005 /* {APP} */,
+\t\t\t\t{K05} /* {APP} */,
 \t\t\t);
 \t\t}};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-\t\t100000000000000000000009 /* Resources */ = {{
+\t\t{K09} /* Resources */ = {{
 \t\t\tisa = PBXResourcesBuildPhase;
 \t\t\tbuildActionMask = 2147483647;
 \t\t\tfiles = (
@@ -199,7 +223,7 @@ out = f"""// !$*UTF8*$!
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-\t\t100000000000000000000007 /* Sources */ = {{
+\t\t{K07} /* Sources */ = {{
 \t\t\tisa = PBXSourcesBuildPhase;
 \t\t\tbuildActionMask = 2147483647;
 \t\t\tfiles = (
@@ -210,7 +234,7 @@ out = f"""// !$*UTF8*$!
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-\t\t100000000000000000000012 /* Debug */ = {{
+\t\t{K12} /* Debug */ = {{
 \t\t\tisa = XCBuildConfiguration;
 \t\t\tbuildSettings = {{
 {COMMON}
@@ -228,7 +252,7 @@ out = f"""// !$*UTF8*$!
 \t\t\t}};
 \t\t\tname = Debug;
 \t\t}};
-\t\t100000000000000000000013 /* Release */ = {{
+\t\t{K13} /* Release */ = {{
 \t\t\tisa = XCBuildConfiguration;
 \t\t\tbuildSettings = {{
 {COMMON}
@@ -240,14 +264,14 @@ out = f"""// !$*UTF8*$!
 \t\t\t}};
 \t\t\tname = Release;
 \t\t}};
-\t\t100000000000000000000014 /* Debug */ = {{
+\t\t{K14} /* Debug */ = {{
 \t\t\tisa = XCBuildConfiguration;
 \t\t\tbuildSettings = {{
 {TARGET}
 \t\t\t}};
 \t\t\tname = Debug;
 \t\t}};
-\t\t100000000000000000000015 /* Release */ = {{
+\t\t{K15} /* Release */ = {{
 \t\t\tisa = XCBuildConfiguration;
 \t\t\tbuildSettings = {{
 {TARGET}
@@ -257,30 +281,38 @@ out = f"""// !$*UTF8*$!
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-\t\t100000000000000000000010 /* Build configuration list for PBXProject "{APP}" */ = {{
+\t\t{K10} /* Build configuration list for PBXProject "{APP}" */ = {{
 \t\t\tisa = XCConfigurationList;
 \t\t\tbuildConfigurations = (
-\t\t\t\t100000000000000000000012 /* Debug */,
-\t\t\t\t100000000000000000000013 /* Release */,
+\t\t\t\t{K12} /* Debug */,
+\t\t\t\t{K13} /* Release */,
 \t\t\t);
 \t\t\tdefaultConfigurationIsVisible = 0;
 \t\t\tdefaultConfigurationName = Release;
 \t\t}};
-\t\t100000000000000000000011 /* Build configuration list for PBXNativeTarget "{APP}" */ = {{
+\t\t{K11} /* Build configuration list for PBXNativeTarget "{APP}" */ = {{
 \t\t\tisa = XCConfigurationList;
 \t\t\tbuildConfigurations = (
-\t\t\t\t100000000000000000000014 /* Debug */,
-\t\t\t\t100000000000000000000015 /* Release */,
+\t\t\t\t{K14} /* Debug */,
+\t\t\t\t{K15} /* Release */,
 \t\t\t);
 \t\t\tdefaultConfigurationIsVisible = 0;
 \t\t\tdefaultConfigurationName = Release;
 \t\t}};
 /* End XCConfigurationList section */
 \t}};
-\trootObject = 100000000000000000000001 /* Project object */;
+\trootObject = {K01} /* Project object */;
 }}
 """
 path = os.path.join(ROOT, f"{APP}.xcodeproj", "project.pbxproj")
 with open(path, "w", encoding="utf-8", newline="\n") as fh:
     fh.write(out)
 print(f"wrote {path} with {len(SOURCES)} sources")
+
+# The shared scheme names the target by its object id, so keep it in step.
+scheme = os.path.join(ROOT, f"{APP}.xcodeproj", "xcshareddata", "xcschemes", f"{APP}.xcscheme")
+text = open(scheme, encoding="utf-8").read()
+text = re.sub(r'BlueprintIdentifier = "[0-9A-F]{24}"', f'BlueprintIdentifier = "{K05}"', text)
+with open(scheme, "w", encoding="utf-8", newline="\n") as fh:
+    fh.write(text)
+print(f"scheme points at target {K05}")

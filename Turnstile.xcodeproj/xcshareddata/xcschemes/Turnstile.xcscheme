@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "100000000000000000000005"
+               BlueprintIdentifier = "41432600E2B291A38196801F"
                BuildableName = "Turnstile.app"
                BlueprintName = "Turnstile"
                ReferencedContainer = "container:Turnstile.xcodeproj">
@@ -44,7 +44,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "100000000000000000000005"
+            BlueprintIdentifier = "41432600E2B291A38196801F"
             BuildableName = "Turnstile.app"
             BlueprintName = "Turnstile"
             ReferencedContainer = "container:Turnstile.xcodeproj">
@@ -61,7 +61,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "100000000000000000000005"
+            BlueprintIdentifier = "41432600E2B291A38196801F"
             BuildableName = "Turnstile.app"
             BlueprintName = "Turnstile"
             ReferencedContainer = "container:Turnstile.xcodeproj">

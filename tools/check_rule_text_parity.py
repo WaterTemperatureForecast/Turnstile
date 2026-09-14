@@ -2,7 +2,7 @@
 """Prove the app words rules exactly like the server does.
 
 The reveal shows the server's wording, but the rule builder previews the
-player's own rule using RuleText in Components.swift. If the two drift, a
+player's own rule using RulePhrasing in RuleWording.swift. If the two drift, a
 player sees one phrasing while building and another in the reveal. There is no
 Swift compiler on this box, so this re-implements RuleText from the Swift
 source's own logic and diffs it against worker/fixtures/rule_text.json, which
@@ -73,15 +73,15 @@ def describe(ast):
 def swift_source_matches():
     """Cheap guard: the Swift file must still contain the phrases used here, so
     a silent edit to one side is caught."""
-    src = open(os.path.join(ROOT, "Turnstile", "Components.swift"), encoding="utf-8").read()
+    src = open(os.path.join(ROOT, "Turnstile", "RuleWording.swift"), encoding="utf-8").read()
     needed = ["there are no ", "there is at least one ", "the three tiles are not all ",
               "at least two tiles share a ", "all three \\(attr)s are different",
               ", or both", ", but not both", " and "]
     missing = [n for n in needed if n not in src]
     if missing:
-        print("Components.swift no longer contains:", missing)
+        print("RuleWording.swift no longer contains:", missing)
         return False
-    return re.search(r"enum RuleText", src) is not None
+    return re.search(r"enum RulePhrasing", src) is not None
 
 
 expected = json.load(open(os.path.join(ROOT, "worker", "fixtures", "rule_text.json"), encoding="utf-8"))

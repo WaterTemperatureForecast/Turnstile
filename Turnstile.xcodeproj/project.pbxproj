@@ -7,44 +7,50 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D10000000000000000000201 /* TurnstileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10000000000000000000101 /* TurnstileApp.swift */; };
-		D10000000000000000000202 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10000000000000000000102 /* Models.swift */; };
-		D10000000000000000000203 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10000000000000000000103 /* API.swift */; };
-		D10000000000000000000204 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10000000000000000000104 /* Keychain.swift */; };
-		D10000000000000000000205 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10000000000000000000105 /* AppModel.swift */; };
-		D10000000000000000000206 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10000000000000000000106 /* Components.swift */; };
-		D10000000000000000000207 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10000000000000000000107 /* TodayView.swift */; };
-		D10000000000000000000208 /* MachineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10000000000000000000108 /* MachineView.swift */; };
-		D10000000000000000000209 /* RevealView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10000000000000000000109 /* RevealView.swift */; };
-		D1000000000000000000020A /* RulePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1000000000000000000010A /* RulePickerView.swift */; };
-		D1000000000000000000020B /* YesterdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1000000000000000000010B /* YesterdayView.swift */; };
-		D1000000000000000000020C /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1000000000000000000010C /* LeaderboardView.swift */; };
-		D1000000000000000000020D /* YouView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1000000000000000000010D /* YouView.swift */; };
-		D1000000000000000000020E /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1000000000000000000010E /* HelpView.swift */; };
-		D10000000000000000000210 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D10000000000000000000110 /* Assets.xcassets */; };
+		246349D5F358684BD2565045 /* TurnstileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2515CB970A6298EEAB788707 /* TurnstileApp.swift */; };
+		98FDBBB8DD7F2EB776E5FAA2 /* Wire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C668AA2AAA199475FDE87B5 /* Wire.swift */; };
+		B955D5F50E1034E6C0B1F8FA /* GateClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9066D5B78505B8DEC21AFDEB /* GateClient.swift */; };
+		EF41ADC5722D53C55DB8CBEA /* DeviceIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECFF41BD8319BDCE584D65C /* DeviceIdentity.swift */; };
+		A19C84B0EDAEF0D26CDE57F4 /* GameStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72A65E8177BABD9C12FA658 /* GameStore.swift */; };
+		A6072FCE1DE2EF6FAB8D3E6D /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1410727D394EC1E431913E58 /* Theme.swift */; };
+		E84E05E880555D1AA1F84466 /* TileKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8238C84E1788DA0F12B5CF38 /* TileKit.swift */; };
+		B3CC4EF85DCEA8D5B866410A /* RuleWording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BD0C85234F537C56170B19 /* RuleWording.swift */; };
+		FA95ABE87212D52DBB14094E /* GateHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CFD515DE4CD04C57E07AE7 /* GateHomeView.swift */; };
+		DC6777DEF315BAE6131E9C2B /* MachineScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAAA4523D47EC5D24AC5F9A /* MachineScreen.swift */; };
+		31FE1561E09C383CA859F696 /* VerdictView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A64731C56D6B5806BE49814 /* VerdictView.swift */; };
+		BD5DCFD36750B0572EB063AE /* RuleBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F03E86EFFA2BC979DEF84A /* RuleBuilderView.swift */; };
+		DB201849712930CC1ACC29AD /* MenuSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB1A56A66B5FCF65C8C71BE /* MenuSheet.swift */; };
+		7C7ACDEDA605BF6EB6830BA6 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83670272D37E7665BF548870 /* HistoryView.swift */; };
+		FC94E1C07C10C3AFE33B87A9 /* StandingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E7AFB40C746219B890882 /* StandingsView.swift */; };
+		60541A959015775F0F363D92 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA462F50D0565ABE1C8EF7C /* ProfileView.swift */; };
+		CDFFE696A240983A1D6A7562 /* GuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352E84A3B66CACCC05A31C79 /* GuideView.swift */; };
+		60541A959015775F0F363D92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDA462F50D0565ABE1C8EF7C /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		100000000000000000000006 /* Turnstile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Turnstile.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D10000000000000000000101 /* TurnstileApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnstileApp.swift; sourceTree = "<group>"; };
-		D10000000000000000000102 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
-		D10000000000000000000103 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
-		D10000000000000000000104 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
-		D10000000000000000000105 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
-		D10000000000000000000106 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
-		D10000000000000000000107 /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
-		D10000000000000000000108 /* MachineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineView.swift; sourceTree = "<group>"; };
-		D10000000000000000000109 /* RevealView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevealView.swift; sourceTree = "<group>"; };
-		D1000000000000000000010A /* RulePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulePickerView.swift; sourceTree = "<group>"; };
-		D1000000000000000000010B /* YesterdayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YesterdayView.swift; sourceTree = "<group>"; };
-		D1000000000000000000010C /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
-		D1000000000000000000010D /* YouView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouView.swift; sourceTree = "<group>"; };
-		D1000000000000000000010E /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
-		D10000000000000000000110 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		207924F8B5DD0F476162C0FB /* Turnstile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Turnstile.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2515CB970A6298EEAB788707 /* TurnstileApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnstileApp.swift; sourceTree = "<group>"; };
+		6C668AA2AAA199475FDE87B5 /* Wire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wire.swift; sourceTree = "<group>"; };
+		9066D5B78505B8DEC21AFDEB /* GateClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GateClient.swift; sourceTree = "<group>"; };
+		3ECFF41BD8319BDCE584D65C /* DeviceIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceIdentity.swift; sourceTree = "<group>"; };
+		F72A65E8177BABD9C12FA658 /* GameStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStore.swift; sourceTree = "<group>"; };
+		1410727D394EC1E431913E58 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		8238C84E1788DA0F12B5CF38 /* TileKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileKit.swift; sourceTree = "<group>"; };
+		99BD0C85234F537C56170B19 /* RuleWording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleWording.swift; sourceTree = "<group>"; };
+		15CFD515DE4CD04C57E07AE7 /* GateHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GateHomeView.swift; sourceTree = "<group>"; };
+		1AAAA4523D47EC5D24AC5F9A /* MachineScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineScreen.swift; sourceTree = "<group>"; };
+		8A64731C56D6B5806BE49814 /* VerdictView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerdictView.swift; sourceTree = "<group>"; };
+		63F03E86EFFA2BC979DEF84A /* RuleBuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleBuilderView.swift; sourceTree = "<group>"; };
+		CEB1A56A66B5FCF65C8C71BE /* MenuSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSheet.swift; sourceTree = "<group>"; };
+		83670272D37E7665BF548870 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		3A5E7AFB40C746219B890882 /* StandingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingsView.swift; sourceTree = "<group>"; };
+		DDA462F50D0565ABE1C8EF7C /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		352E84A3B66CACCC05A31C79 /* GuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideView.swift; sourceTree = "<group>"; };
+		DDA462F50D0565ABE1C8EF7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		100000000000000000000008 /* Frameworks */ = {
+		D6F28FE114133EE262474DAC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -54,40 +60,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		100000000000000000000002 = {
+		9A67C60DDEDA1CF38229D20D = {
 			isa = PBXGroup;
 			children = (
-				100000000000000000000004 /* Turnstile */,
-				100000000000000000000003 /* Products */,
+				3BECF022710FF4B0B56FB739 /* Turnstile */,
+				6D5697892ED2489CE7DFE31E /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		100000000000000000000003 /* Products */ = {
+		6D5697892ED2489CE7DFE31E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				100000000000000000000006 /* Turnstile.app */,
+				207924F8B5DD0F476162C0FB /* Turnstile.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		100000000000000000000004 /* Turnstile */ = {
+		3BECF022710FF4B0B56FB739 /* Turnstile */ = {
 			isa = PBXGroup;
 			children = (
-				D10000000000000000000101 /* TurnstileApp.swift */,
-				D10000000000000000000102 /* Models.swift */,
-				D10000000000000000000103 /* API.swift */,
-				D10000000000000000000104 /* Keychain.swift */,
-				D10000000000000000000105 /* AppModel.swift */,
-				D10000000000000000000106 /* Components.swift */,
-				D10000000000000000000107 /* TodayView.swift */,
-				D10000000000000000000108 /* MachineView.swift */,
-				D10000000000000000000109 /* RevealView.swift */,
-				D1000000000000000000010A /* RulePickerView.swift */,
-				D1000000000000000000010B /* YesterdayView.swift */,
-				D1000000000000000000010C /* LeaderboardView.swift */,
-				D1000000000000000000010D /* YouView.swift */,
-				D1000000000000000000010E /* HelpView.swift */,
-				D10000000000000000000110 /* Assets.xcassets */,
+				2515CB970A6298EEAB788707 /* TurnstileApp.swift */,
+				6C668AA2AAA199475FDE87B5 /* Wire.swift */,
+				9066D5B78505B8DEC21AFDEB /* GateClient.swift */,
+				3ECFF41BD8319BDCE584D65C /* DeviceIdentity.swift */,
+				F72A65E8177BABD9C12FA658 /* GameStore.swift */,
+				1410727D394EC1E431913E58 /* Theme.swift */,
+				8238C84E1788DA0F12B5CF38 /* TileKit.swift */,
+				99BD0C85234F537C56170B19 /* RuleWording.swift */,
+				15CFD515DE4CD04C57E07AE7 /* GateHomeView.swift */,
+				1AAAA4523D47EC5D24AC5F9A /* MachineScreen.swift */,
+				8A64731C56D6B5806BE49814 /* VerdictView.swift */,
+				63F03E86EFFA2BC979DEF84A /* RuleBuilderView.swift */,
+				CEB1A56A66B5FCF65C8C71BE /* MenuSheet.swift */,
+				83670272D37E7665BF548870 /* HistoryView.swift */,
+				3A5E7AFB40C746219B890882 /* StandingsView.swift */,
+				DDA462F50D0565ABE1C8EF7C /* ProfileView.swift */,
+				352E84A3B66CACCC05A31C79 /* GuideView.swift */,
+				DDA462F50D0565ABE1C8EF7C /* Assets.xcassets */,
 			);
 			path = Turnstile;
 			sourceTree = "<group>";
@@ -95,13 +104,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		100000000000000000000005 /* Turnstile */ = {
+		41432600E2B291A38196801F /* Turnstile */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 100000000000000000000011 /* Build configuration list for PBXNativeTarget "Turnstile" */;
+			buildConfigurationList = 62CFF25CB105B1AE4469005F /* Build configuration list for PBXNativeTarget "Turnstile" */;
 			buildPhases = (
-				100000000000000000000007 /* Sources */,
-				100000000000000000000008 /* Frameworks */,
-				100000000000000000000009 /* Resources */,
+				A45CC65B3A9FB81F38BB45DB /* Sources */,
+				D6F28FE114133EE262474DAC /* Frameworks */,
+				A7731C7D3233E6F84BB79DF4 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -109,24 +118,24 @@
 			);
 			name = Turnstile;
 			productName = Turnstile;
-			productReference = 100000000000000000000006 /* Turnstile.app */;
+			productReference = 207924F8B5DD0F476162C0FB /* Turnstile.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		100000000000000000000001 /* Project object */ = {
+		164786F5DE2DA36DF92EC5A4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
-					100000000000000000000005 = {
+					41432600E2B291A38196801F = {
 						CreatedOnToolsVersion = 15.0;
 					};
 				};
 			};
-			buildConfigurationList = 100000000000000000000010 /* Build configuration list for PBXProject "Turnstile" */;
+			buildConfigurationList = C6C2C2A9F03B0A8EB65B2B42 /* Build configuration list for PBXProject "Turnstile" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -134,53 +143,56 @@
 				en,
 				Base,
 			);
-			mainGroup = 100000000000000000000002;
-			productRefGroup = 100000000000000000000003 /* Products */;
+			mainGroup = 9A67C60DDEDA1CF38229D20D;
+			productRefGroup = 6D5697892ED2489CE7DFE31E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				100000000000000000000005 /* Turnstile */,
+				41432600E2B291A38196801F /* Turnstile */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		100000000000000000000009 /* Resources */ = {
+		A7731C7D3233E6F84BB79DF4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D10000000000000000000210 /* Assets.xcassets in Resources */,
+				60541A959015775F0F363D92 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		100000000000000000000007 /* Sources */ = {
+		A45CC65B3A9FB81F38BB45DB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D10000000000000000000201 /* TurnstileApp.swift in Sources */,
-				D10000000000000000000202 /* Models.swift in Sources */,
-				D10000000000000000000203 /* API.swift in Sources */,
-				D10000000000000000000204 /* Keychain.swift in Sources */,
-				D10000000000000000000205 /* AppModel.swift in Sources */,
-				D10000000000000000000206 /* Components.swift in Sources */,
-				D10000000000000000000207 /* TodayView.swift in Sources */,
-				D10000000000000000000208 /* MachineView.swift in Sources */,
-				D10000000000000000000209 /* RevealView.swift in Sources */,
-				D1000000000000000000020A /* RulePickerView.swift in Sources */,
-				D1000000000000000000020B /* YesterdayView.swift in Sources */,
-				D1000000000000000000020C /* LeaderboardView.swift in Sources */,
-				D1000000000000000000020D /* YouView.swift in Sources */,
-				D1000000000000000000020E /* HelpView.swift in Sources */,
+				246349D5F358684BD2565045 /* TurnstileApp.swift in Sources */,
+				98FDBBB8DD7F2EB776E5FAA2 /* Wire.swift in Sources */,
+				B955D5F50E1034E6C0B1F8FA /* GateClient.swift in Sources */,
+				EF41ADC5722D53C55DB8CBEA /* DeviceIdentity.swift in Sources */,
+				A19C84B0EDAEF0D26CDE57F4 /* GameStore.swift in Sources */,
+				A6072FCE1DE2EF6FAB8D3E6D /* Theme.swift in Sources */,
+				E84E05E880555D1AA1F84466 /* TileKit.swift in Sources */,
+				B3CC4EF85DCEA8D5B866410A /* RuleWording.swift in Sources */,
+				FA95ABE87212D52DBB14094E /* GateHomeView.swift in Sources */,
+				DC6777DEF315BAE6131E9C2B /* MachineScreen.swift in Sources */,
+				31FE1561E09C383CA859F696 /* VerdictView.swift in Sources */,
+				BD5DCFD36750B0572EB063AE /* RuleBuilderView.swift in Sources */,
+				DB201849712930CC1ACC29AD /* MenuSheet.swift in Sources */,
+				7C7ACDEDA605BF6EB6830BA6 /* HistoryView.swift in Sources */,
+				FC94E1C07C10C3AFE33B87A9 /* StandingsView.swift in Sources */,
+				60541A959015775F0F363D92 /* ProfileView.swift in Sources */,
+				CDFFE696A240983A1D6A7562 /* GuideView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		100000000000000000000012 /* Debug */ = {
+		0A864EF7E0696A9A9347FDED /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -211,7 +223,7 @@
 			};
 			name = Debug;
 		};
-		100000000000000000000013 /* Release */ = {
+		764552A01DC5E90F0F1AD5E5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -236,7 +248,7 @@
 			};
 			name = Release;
 		};
-		100000000000000000000014 /* Debug */ = {
+		0B0F33D8B008BBC4C7E88030 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -266,7 +278,7 @@
 			};
 			name = Debug;
 		};
-		100000000000000000000015 /* Release */ = {
+		A31203B76DF313E2675167A3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -299,25 +311,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		100000000000000000000010 /* Build configuration list for PBXProject "Turnstile" */ = {
+		C6C2C2A9F03B0A8EB65B2B42 /* Build configuration list for PBXProject "Turnstile" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				100000000000000000000012 /* Debug */,
-				100000000000000000000013 /* Release */,
+				0A864EF7E0696A9A9347FDED /* Debug */,
+				764552A01DC5E90F0F1AD5E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		100000000000000000000011 /* Build configuration list for PBXNativeTarget "Turnstile" */ = {
+		62CFF25CB105B1AE4469005F /* Build configuration list for PBXNativeTarget "Turnstile" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				100000000000000000000014 /* Debug */,
-				100000000000000000000015 /* Release */,
+				0B0F33D8B008BBC4C7E88030 /* Debug */,
+				A31203B76DF313E2675167A3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 100000000000000000000001 /* Project object */;
+	rootObject = 164786F5DE2DA36DF92EC5A4 /* Project object */;
 }
