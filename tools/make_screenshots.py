@@ -272,9 +272,9 @@ def screen_home(sc):
 def screen_try(sc):
     sc.status_bar()
     y = sc.top_bar("Claude Opus 5\u2019s machine", back=True, icons=False)
-    y = lanes_card(sc, y + 4)
+    y = lanes_card(sc, y + 4, size=28, show_intro=False)
 
-    h = 30 + len(TRIED) * 62
+    h = 30 + len(TRIED) * 62 + 14
     x, _, w = sc.slab(y, h)
     sc.eyebrow(x + 18, y + 16, "Rows you tried")
     ry = y + 40
@@ -286,21 +286,21 @@ def screen_try(sc):
         ry += 62
     y += h + 14
 
-    h = 400
+    h = 384
     x, _, w = sc.slab(y, h)
     sc.text(x + 18, y + 18, "Try a row", "semibold", 18, C["text"])
     sc.text(x + w - 18, y + 22, "2 of 4 left", "semibold", 11, C["muted"], anchor="ra")
     sy = y + 54
-    sc.tile(x + 18, sy, 58, 2)
-    sc.tile(x + 86, sy, 58, 5)
-    sc.rrect(x + 154, sy, 58, 58, 15, fill=C["slate_high"], outline=C["brand"], width=2.4)
-    gy = sy + 76
+    sc.tile(x + 18, sy, 52, 2)
+    sc.tile(x + 80, sy, 52, 5)
+    sc.rrect(x + 142, sy, 52, 52, 14, fill=C["slate_high"], outline=C["brand"], width=2.4)
+    gy = sy + 66
     cell = (w - 36 - 20) / 3
     for shape in range(3):
         for colour in range(3):
             t = shape * 3 + colour
-            sc.tile(x + 18 + colour * (cell + 10) + (cell - 46) / 2, gy + shape * 54, 46, t)
-    ny = gy + 3 * 54 + 8
+            sc.tile(x + 18 + colour * (cell + 10) + (cell - 40) / 2, gy + shape * 46, 40, t)
+    ny = gy + 3 * 46 + 6
     sc.rrect(x + 18, ny, w - 36, 40, 14, fill=C["slate_high"])
     sc.text(x + 46, ny + 12, "If the ends must match, yellow is accepted.", "regular", 13, C["muted"])
     sc.bright_button(ny + 54, "Ask the machine")
@@ -311,11 +311,11 @@ def screen_final(sc):
     y = sc.top_bar("Claude Opus 5\u2019s machine", back=True, icons=False)
     y = lanes_card(sc, y + 4, size=28, show_intro=False)
 
-    h = 110 + len(FINAL) * 92
+    h = 116 + len(FINAL) * 92 + 44
     x, _, w = sc.slab(y, h)
     sc.text(x + 18, y + 18, "The final four", "semibold", 20, C["text"])
     sc.text(x + 18, y + 48, "Which of these rows does the machine accept? Exactly two of them.", "regular", 13, C["muted"], max_w=w - 36)
-    ry = y + 90
+    ry = y + 98
     pill_w = (w - 36 - 10) / 2
     for seq, pick in FINAL:
         sc.strip(x + 18, ry, seq, 40)
@@ -430,7 +430,7 @@ def poster(shot, caption, size, cap_px, screen_frac, radius_frac):
     dw = int(W * screen_frac)
     dh = int(shot.height * dw / shot.width)
     top = int(H * 0.045)
-    max_h = int(H * 0.73)
+    max_h = int(H * 0.775)
     if dh > max_h:                      # crop the bottom of a tall screen rather than shrink it
         crop_px = int(max_h * shot.width / dw)
         shot = shot.crop((0, 0, shot.width, crop_px))
@@ -447,7 +447,7 @@ def poster(shot, caption, size, cap_px, screen_frac, radius_frac):
     canvas.paste(shot, (x, top), mask)
     d = ImageDraw.Draw(canvas)
     f = font("semibold", cap_px)
-    y = top + dh + int(H * 0.05)
+    y = top + dh + int(H * 0.035)
     for line in caption.split("\n"):
         d.text((W / 2, y), line, font=f, fill=C["text"], anchor="ma")
         y += int(cap_px * 1.2)
