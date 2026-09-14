@@ -56,12 +56,15 @@ K15 = oid("K", 15)
 
 file_refs, build_files, group_children, source_lines = [], [], [], []
 for n, name in enumerate(SOURCES, start=1):
-    ref, bf = oid("D1", 0x100 + n), oid("D1", 0x200 + n)
+    # Separate namespaces per kind of object. With numeric slots shared between
+    # sources and the asset catalog, the 16th source collided with Assets.xcassets
+    # (same id twice), and Codemagic's use-profiles could no longer match the target.
+    ref, bf = oid("source-ref", name), oid("source-build", name)
     file_refs.append(f"\t\t{ref} /* {name} */ = {{isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = {name}; sourceTree = \"<group>\"; }};")
     build_files.append(f"\t\t{bf} /* {name} in Sources */ = {{isa = PBXBuildFile; fileRef = {ref} /* {name} */; }};")
     group_children.append(f"\t\t\t\t{ref} /* {name} */,")
     source_lines.append(f"\t\t\t\t{bf} /* {name} in Sources */,")
-assets_ref, assets_bf = oid("D1", 0x110), oid("D1", 0x210)
+assets_ref, assets_bf = oid("asset-ref", "Assets.xcassets"), oid("asset-build", "Assets.xcassets")
 
 COMMON = """\t\t\t\tALWAYS_SEARCH_USER_PATHS = NO;
 \t\t\t\tCLANG_ANALYZER_NONNULL = YES;
@@ -304,6 +307,13 @@ out = f"""// !$*UTF8*$!
 \trootObject = {K01} /* Project object */;
 }}
 """
+# Every top-level object must have its own id. Object definitions sit at two
+# tabs of indent; TargetAttributes re-uses the target id deeper in, legitimately.
+defined = re.findall(r"^\t\t([0-9A-F]{24})\b", out, re.M)
+dupes = sorted({d for d in defined if defined.count(d) > 1})
+if dupes:
+    sys.exit(f"refusing to write a project with duplicate object ids: {dupes}")
+
 path = os.path.join(ROOT, f"{APP}.xcodeproj", "project.pbxproj")
 with open(path, "w", encoding="utf-8", newline="\n") as fh:
     fh.write(out)

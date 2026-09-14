@@ -7,46 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		246349D5F358684BD2565045 /* TurnstileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2515CB970A6298EEAB788707 /* TurnstileApp.swift */; };
-		98FDBBB8DD7F2EB776E5FAA2 /* Wire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C668AA2AAA199475FDE87B5 /* Wire.swift */; };
-		B955D5F50E1034E6C0B1F8FA /* GateClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9066D5B78505B8DEC21AFDEB /* GateClient.swift */; };
-		EF41ADC5722D53C55DB8CBEA /* DeviceIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECFF41BD8319BDCE584D65C /* DeviceIdentity.swift */; };
-		A19C84B0EDAEF0D26CDE57F4 /* GameStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72A65E8177BABD9C12FA658 /* GameStore.swift */; };
-		A6072FCE1DE2EF6FAB8D3E6D /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1410727D394EC1E431913E58 /* Theme.swift */; };
-		E84E05E880555D1AA1F84466 /* TileKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8238C84E1788DA0F12B5CF38 /* TileKit.swift */; };
-		B3CC4EF85DCEA8D5B866410A /* RuleWording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BD0C85234F537C56170B19 /* RuleWording.swift */; };
-		FA95ABE87212D52DBB14094E /* GateHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CFD515DE4CD04C57E07AE7 /* GateHomeView.swift */; };
-		DC6777DEF315BAE6131E9C2B /* MachineScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAAA4523D47EC5D24AC5F9A /* MachineScreen.swift */; };
-		31FE1561E09C383CA859F696 /* VerdictView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A64731C56D6B5806BE49814 /* VerdictView.swift */; };
-		BD5DCFD36750B0572EB063AE /* RuleBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F03E86EFFA2BC979DEF84A /* RuleBuilderView.swift */; };
-		DB201849712930CC1ACC29AD /* MenuSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB1A56A66B5FCF65C8C71BE /* MenuSheet.swift */; };
-		7C7ACDEDA605BF6EB6830BA6 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83670272D37E7665BF548870 /* HistoryView.swift */; };
-		FC94E1C07C10C3AFE33B87A9 /* StandingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E7AFB40C746219B890882 /* StandingsView.swift */; };
-		60541A959015775F0F363D92 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA462F50D0565ABE1C8EF7C /* ProfileView.swift */; };
-		CDFFE696A240983A1D6A7562 /* GuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352E84A3B66CACCC05A31C79 /* GuideView.swift */; };
-		60541A959015775F0F363D92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDA462F50D0565ABE1C8EF7C /* Assets.xcassets */; };
+		7334847023675C1F009F897D /* TurnstileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2455D5E6EDD5F9E5B60D615 /* TurnstileApp.swift */; };
+		0B92B1B501CD800B95C609DA /* Wire.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2741132840387560BDBD5BD /* Wire.swift */; };
+		75B7392085AC8C87901B6D68 /* GateClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDA4E34F90C9945FB165551 /* GateClient.swift */; };
+		B155104EBAF5DE78811D658C /* DeviceIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C32FFBA8A7DF021EA124D5D /* DeviceIdentity.swift */; };
+		4200E7773E8F903AF4AA4F54 /* GameStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F7CD64D52FDC7986EB814 /* GameStore.swift */; };
+		EC3A38CC755670061C8C2D17 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD412C9AC277ABD77D240CE9 /* Theme.swift */; };
+		3BAB3CCC8450049FF7E56994 /* TileKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFECFBADFC614995ACA98F2B /* TileKit.swift */; };
+		E1DC235472E40449722A6E33 /* RuleWording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE067642BDB6AC10B43BCF8 /* RuleWording.swift */; };
+		0760DBC21F8E2A2C5B271280 /* GateHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F67F184A3A2C69D88B758 /* GateHomeView.swift */; };
+		0B42469420E8CEA3FEF2F5A0 /* MachineScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA4106F94650BF314E9EE8B /* MachineScreen.swift */; };
+		E1351C57E4C018CE63AE278B /* VerdictView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4141DE0ED2FD21C14E02D8AE /* VerdictView.swift */; };
+		BE0A05F72913B2A9D5DAF288 /* RuleBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0471BA24DFBB81BFCC20B39 /* RuleBuilderView.swift */; };
+		A35A61680AAF2D73087411D2 /* MenuSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EE23FD5DAAFF63D06F3A6D /* MenuSheet.swift */; };
+		BAB0904A9E53D2DDE485D330 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03238B578C3AF1CF0A03C269 /* HistoryView.swift */; };
+		64D606A3518676E09A8143D0 /* StandingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DE3BC56FA59931E9530E68 /* StandingsView.swift */; };
+		F79AAF22D349C333BBC7AA02 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0897773E82F74D19C1DA27 /* ProfileView.swift */; };
+		9049E99853E37EC1D75FCA63 /* GuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6D9860044073C23CE75896 /* GuideView.swift */; };
+		59E7C8F331EEDAABD7DD7E9D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CC6496A8B071337E40BB3E7 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		207924F8B5DD0F476162C0FB /* Turnstile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Turnstile.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		2515CB970A6298EEAB788707 /* TurnstileApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnstileApp.swift; sourceTree = "<group>"; };
-		6C668AA2AAA199475FDE87B5 /* Wire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wire.swift; sourceTree = "<group>"; };
-		9066D5B78505B8DEC21AFDEB /* GateClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GateClient.swift; sourceTree = "<group>"; };
-		3ECFF41BD8319BDCE584D65C /* DeviceIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceIdentity.swift; sourceTree = "<group>"; };
-		F72A65E8177BABD9C12FA658 /* GameStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStore.swift; sourceTree = "<group>"; };
-		1410727D394EC1E431913E58 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		8238C84E1788DA0F12B5CF38 /* TileKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileKit.swift; sourceTree = "<group>"; };
-		99BD0C85234F537C56170B19 /* RuleWording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleWording.swift; sourceTree = "<group>"; };
-		15CFD515DE4CD04C57E07AE7 /* GateHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GateHomeView.swift; sourceTree = "<group>"; };
-		1AAAA4523D47EC5D24AC5F9A /* MachineScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineScreen.swift; sourceTree = "<group>"; };
-		8A64731C56D6B5806BE49814 /* VerdictView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerdictView.swift; sourceTree = "<group>"; };
-		63F03E86EFFA2BC979DEF84A /* RuleBuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleBuilderView.swift; sourceTree = "<group>"; };
-		CEB1A56A66B5FCF65C8C71BE /* MenuSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSheet.swift; sourceTree = "<group>"; };
-		83670272D37E7665BF548870 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
-		3A5E7AFB40C746219B890882 /* StandingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingsView.swift; sourceTree = "<group>"; };
-		DDA462F50D0565ABE1C8EF7C /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		352E84A3B66CACCC05A31C79 /* GuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideView.swift; sourceTree = "<group>"; };
-		DDA462F50D0565ABE1C8EF7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D2455D5E6EDD5F9E5B60D615 /* TurnstileApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnstileApp.swift; sourceTree = "<group>"; };
+		D2741132840387560BDBD5BD /* Wire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wire.swift; sourceTree = "<group>"; };
+		2EDA4E34F90C9945FB165551 /* GateClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GateClient.swift; sourceTree = "<group>"; };
+		6C32FFBA8A7DF021EA124D5D /* DeviceIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceIdentity.swift; sourceTree = "<group>"; };
+		D26F7CD64D52FDC7986EB814 /* GameStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStore.swift; sourceTree = "<group>"; };
+		CD412C9AC277ABD77D240CE9 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		FFECFBADFC614995ACA98F2B /* TileKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileKit.swift; sourceTree = "<group>"; };
+		1AE067642BDB6AC10B43BCF8 /* RuleWording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleWording.swift; sourceTree = "<group>"; };
+		4A2F67F184A3A2C69D88B758 /* GateHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GateHomeView.swift; sourceTree = "<group>"; };
+		7BA4106F94650BF314E9EE8B /* MachineScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineScreen.swift; sourceTree = "<group>"; };
+		4141DE0ED2FD21C14E02D8AE /* VerdictView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerdictView.swift; sourceTree = "<group>"; };
+		E0471BA24DFBB81BFCC20B39 /* RuleBuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleBuilderView.swift; sourceTree = "<group>"; };
+		66EE23FD5DAAFF63D06F3A6D /* MenuSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSheet.swift; sourceTree = "<group>"; };
+		03238B578C3AF1CF0A03C269 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		F9DE3BC56FA59931E9530E68 /* StandingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingsView.swift; sourceTree = "<group>"; };
+		8C0897773E82F74D19C1DA27 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		5D6D9860044073C23CE75896 /* GuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideView.swift; sourceTree = "<group>"; };
+		4CC6496A8B071337E40BB3E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,24 +79,24 @@
 		3BECF022710FF4B0B56FB739 /* Turnstile */ = {
 			isa = PBXGroup;
 			children = (
-				2515CB970A6298EEAB788707 /* TurnstileApp.swift */,
-				6C668AA2AAA199475FDE87B5 /* Wire.swift */,
-				9066D5B78505B8DEC21AFDEB /* GateClient.swift */,
-				3ECFF41BD8319BDCE584D65C /* DeviceIdentity.swift */,
-				F72A65E8177BABD9C12FA658 /* GameStore.swift */,
-				1410727D394EC1E431913E58 /* Theme.swift */,
-				8238C84E1788DA0F12B5CF38 /* TileKit.swift */,
-				99BD0C85234F537C56170B19 /* RuleWording.swift */,
-				15CFD515DE4CD04C57E07AE7 /* GateHomeView.swift */,
-				1AAAA4523D47EC5D24AC5F9A /* MachineScreen.swift */,
-				8A64731C56D6B5806BE49814 /* VerdictView.swift */,
-				63F03E86EFFA2BC979DEF84A /* RuleBuilderView.swift */,
-				CEB1A56A66B5FCF65C8C71BE /* MenuSheet.swift */,
-				83670272D37E7665BF548870 /* HistoryView.swift */,
-				3A5E7AFB40C746219B890882 /* StandingsView.swift */,
-				DDA462F50D0565ABE1C8EF7C /* ProfileView.swift */,
-				352E84A3B66CACCC05A31C79 /* GuideView.swift */,
-				DDA462F50D0565ABE1C8EF7C /* Assets.xcassets */,
+				D2455D5E6EDD5F9E5B60D615 /* TurnstileApp.swift */,
+				D2741132840387560BDBD5BD /* Wire.swift */,
+				2EDA4E34F90C9945FB165551 /* GateClient.swift */,
+				6C32FFBA8A7DF021EA124D5D /* DeviceIdentity.swift */,
+				D26F7CD64D52FDC7986EB814 /* GameStore.swift */,
+				CD412C9AC277ABD77D240CE9 /* Theme.swift */,
+				FFECFBADFC614995ACA98F2B /* TileKit.swift */,
+				1AE067642BDB6AC10B43BCF8 /* RuleWording.swift */,
+				4A2F67F184A3A2C69D88B758 /* GateHomeView.swift */,
+				7BA4106F94650BF314E9EE8B /* MachineScreen.swift */,
+				4141DE0ED2FD21C14E02D8AE /* VerdictView.swift */,
+				E0471BA24DFBB81BFCC20B39 /* RuleBuilderView.swift */,
+				66EE23FD5DAAFF63D06F3A6D /* MenuSheet.swift */,
+				03238B578C3AF1CF0A03C269 /* HistoryView.swift */,
+				F9DE3BC56FA59931E9530E68 /* StandingsView.swift */,
+				8C0897773E82F74D19C1DA27 /* ProfileView.swift */,
+				5D6D9860044073C23CE75896 /* GuideView.swift */,
+				4CC6496A8B071337E40BB3E7 /* Assets.xcassets */,
 			);
 			path = Turnstile;
 			sourceTree = "<group>";
@@ -158,7 +158,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60541A959015775F0F363D92 /* Assets.xcassets in Resources */,
+				59E7C8F331EEDAABD7DD7E9D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,23 +169,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				246349D5F358684BD2565045 /* TurnstileApp.swift in Sources */,
-				98FDBBB8DD7F2EB776E5FAA2 /* Wire.swift in Sources */,
-				B955D5F50E1034E6C0B1F8FA /* GateClient.swift in Sources */,
-				EF41ADC5722D53C55DB8CBEA /* DeviceIdentity.swift in Sources */,
-				A19C84B0EDAEF0D26CDE57F4 /* GameStore.swift in Sources */,
-				A6072FCE1DE2EF6FAB8D3E6D /* Theme.swift in Sources */,
-				E84E05E880555D1AA1F84466 /* TileKit.swift in Sources */,
-				B3CC4EF85DCEA8D5B866410A /* RuleWording.swift in Sources */,
-				FA95ABE87212D52DBB14094E /* GateHomeView.swift in Sources */,
-				DC6777DEF315BAE6131E9C2B /* MachineScreen.swift in Sources */,
-				31FE1561E09C383CA859F696 /* VerdictView.swift in Sources */,
-				BD5DCFD36750B0572EB063AE /* RuleBuilderView.swift in Sources */,
-				DB201849712930CC1ACC29AD /* MenuSheet.swift in Sources */,
-				7C7ACDEDA605BF6EB6830BA6 /* HistoryView.swift in Sources */,
-				FC94E1C07C10C3AFE33B87A9 /* StandingsView.swift in Sources */,
-				60541A959015775F0F363D92 /* ProfileView.swift in Sources */,
-				CDFFE696A240983A1D6A7562 /* GuideView.swift in Sources */,
+				7334847023675C1F009F897D /* TurnstileApp.swift in Sources */,
+				0B92B1B501CD800B95C609DA /* Wire.swift in Sources */,
+				75B7392085AC8C87901B6D68 /* GateClient.swift in Sources */,
+				B155104EBAF5DE78811D658C /* DeviceIdentity.swift in Sources */,
+				4200E7773E8F903AF4AA4F54 /* GameStore.swift in Sources */,
+				EC3A38CC755670061C8C2D17 /* Theme.swift in Sources */,
+				3BAB3CCC8450049FF7E56994 /* TileKit.swift in Sources */,
+				E1DC235472E40449722A6E33 /* RuleWording.swift in Sources */,
+				0760DBC21F8E2A2C5B271280 /* GateHomeView.swift in Sources */,
+				0B42469420E8CEA3FEF2F5A0 /* MachineScreen.swift in Sources */,
+				E1351C57E4C018CE63AE278B /* VerdictView.swift in Sources */,
+				BE0A05F72913B2A9D5DAF288 /* RuleBuilderView.swift in Sources */,
+				A35A61680AAF2D73087411D2 /* MenuSheet.swift in Sources */,
+				BAB0904A9E53D2DDE485D330 /* HistoryView.swift in Sources */,
+				64D606A3518676E09A8143D0 /* StandingsView.swift in Sources */,
+				F79AAF22D349C333BBC7AA02 /* ProfileView.swift in Sources */,
+				9049E99853E37EC1D75FCA63 /* GuideView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
